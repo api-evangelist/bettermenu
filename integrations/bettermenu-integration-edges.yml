@@ -1,0 +1,16 @@
+generated: '2026-10-21'
+method: none
+source:
+- https://zapier.com/apps/bettermenu/integrations
+- https://n8n.io/integrations/bettermenu/
+- https://composio.dev/toolkits/bettermenu
+- https://monid.ai/tools/bettermenu
+checked:
+- https://composio.dev/toolkits/bettermenu
+- https://monid.ai/tools/bettermenu
+- https://n8n.io/integrations/bettermenu/
+- https://zapier.com/apps/bettermenu/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

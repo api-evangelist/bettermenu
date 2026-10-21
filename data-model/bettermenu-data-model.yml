@@ -1,0 +1,2013 @@
+generated: '2026-10-21'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/_original/bettermenu-api-openapi.json
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 277
+  entities_in_spec: 277
+  relationships: 297
+entities:
+- name: AcknowledgedFillView
+  fields: 7
+  description: A saved confirmation of a stated zero.
+- name: Actor
+  fields: 2
+  description: Represents an actor who initiates a domain operation.
+- name: ActorData
+  fields: 2
+  description: Actor information in audit event.
+- name: AddIngredientItem
+  fields: 5
+  description: 'Add a new ingredient row. Full pipeline: Parse Text → Search Ingredient → Convert Units.'
+- name: AddServingData
+  fields: 2
+  description: Data payload for add serving response.
+- name: AddServingRequest
+  fields: 2
+  description: Add a serving to a recipe.
+- name: AddServingResponse
+  fields: 3
+  description: Response for addRecipeServing.
+- name: AddedDiff
+  fields: 2
+  description: Was ``None``, now has a value.
+- name: AddedSugarFinding
+  fields: 3
+- name: AddedSugarsCaller
+  fields: 9
+  description: A person's entry for an ingredient row.
+- name: AddedSugarsConfirmationRecord
+  fields: 4
+  description: The confirmation record that stands for the report.
+- name: AddedSugarsDeclaration
+  fields: 11
+  description: The figures declared for one serving, with the basis that produced them.
+- name: AddedSugarsDerivedView
+  fields: 9
+- name: AddedSugarsDeterminationView
+  fields: 6
+- name: AddedSugarsEffectiveView
+  fields: 3
+- name: AddedSugarsEngine
+  fields: 4
+  description: Which rules and suggester produced the report. Provenance, not content.
+- name: AddedSugarsFinding
+  fields: 9
+  description: What is known about the Added Sugars line when a label is read or exported.
+- name: AddedSugarsPresentation
+  fields: 4
+  description: Presentation-only state derived from the determination (not hashed).
+- name: AddedSugarsReadiness
+  fields: 5
+  description: How far the report is from being ready to confirm.
+- name: AddedSugarsReportView
+  fields: 5
+  description: The report as a response carries it.
+- name: AddedSugarsRowAnswerItem
+  fields: 6
+  description: A person's answer for one named ingredient row, as one item of a batch.
+- name: AddedSugarsRowIngredientView
+  fields: 7
+  description: 'What was classified: one food or one pinned custom ingredient, with the'
+- name: AddedSugarsRowRefusal
+  fields: 5
+  description: One row of a batch that could not take its answer.
+- name: AddedSugarsRowView
+  fields: 7
+- name: AddedSugarsRowsRefusedProblem
+  fields: 11
+  description: '422 `added_sugars_rows_refused`: nothing was saved.'
+- name: AddedSugarsSuggestedView
+  fields: 9
+- name: AddedSugarsSuggestionProvenance
+  fields: 5
+  description: How a proposal was produced. Provenance, not content.
+- name: AddedSugarsTotals
+  fields: 2
+- name: AllowanceView
+  fields: 2
+  description: What a plan allows for a cycle, tagged so the three cases stay distinct.
+- name: ApiCustomIngredientRef
+  fields: 11
+  description: A pinned reference to a user-provided custom ingredient.
+- name: ApiFormIngredient
+  fields: 13
+  description: An ingredient entered through the structured form (search->pick->quantity).
+- name: ApiResolutionIngredient
+  fields: 14
+  description: An ingredient that originated from the resolution (paste->parse) pipeline.
+- name: ArchiveCustomIngredientResponse
+  fields: 3
+  description: Response for the archive-custom-ingredient endpoint.
+- name: ArtifactRef
+  fields: 3
+  description: Reference to an uploaded spec-sheet/photo artifact.
+- name: ArtifactResult
+  fields: 7
+  description: One rendered output format within a label export response.
+- name: AuditTrailData
+  fields: 2
+  description: Audit trail data for a recipe.
+- name: AuditTrailResponse
+  fields: 2
+  description: Response for get recipe audit trail endpoint.
+- name: BillingPrice
+  fields: 4
+  description: Display + checkout metadata for a purchasable plan's recurring price.
+- name: CapabilityUsage
+  fields: 3
+  description: One capability's share of the cycle.
+- name: CheckoutRequest
+  fields: 3
+- name: CheckoutResponse
+  fields: 1
+- name: Citation
+  fields: 3
+  description: A source and the verbatim words that support a finding.
+- name: ComputeConversionsRequest
+  fields: 3
+  description: Batch conversion request.
+- name: ComputeNutritionData
+  fields: 2
+  description: Data payload for compute nutrition response.
+- name: ComputeNutritionFactsData
+  fields: 4
+  description: Data payload for compute nutrition facts response (Step ⑥).
+- name: ComputeNutritionFactsResponse
+  fields: 3
+  description: Response for computeNutritionFacts (atomic step).
+- name: ComputeNutritionResponse
+  fields: 3
+  description: Response for computeRecipeNutrition (atomic step).
+- name: ConfirmAddedSugarsReportRequest
+  fields: 1
+  description: The report a person is confirming.
+- name: ConfirmCustomIngredientResponse
+  fields: 3
+  description: Response for the confirm-custom-ingredient endpoint.
+- name: ConfirmIngredientsRequest
+  fields: 1
+  description: Request body for POST /recipes/{id}/ingredient-resolutions/confirm.
+- name: ConfirmRecipeAddedSugarsData
+  fields: 7
+  description: The shared report data, with what this confirmation did.
+- name: ConfirmRecipeAddedSugarsResponse
+  fields: 3
+  description: Response for confirmRecipeAddedSugarsReport.
+- name: ConfirmedFillRecord
+  fields: 3
+  description: A stated zero the maker confirmed, as the figures they were shown.
+- name: ConversionRequestItem
+  fields: 4
+  description: Single item to compute conversion for.
+- name: ConversionStep
+  fields: 7
+  description: Single step in the conversion chain.
+- name: ConvertedIngredient
+  fields: 3
+  description: Converted ingredient to metric units.
+- name: CreateCustomIngredientRequest
+  fields: 8
+  description: Create a custom ingredient, optionally with nutrients and serving in one shot.
+- name: CreateCustomIngredientResponse
+  fields: 3
+  description: Response for the create-custom-ingredient endpoint.
+- name: CreateRecipeRequest
+  fields: 3
+  description: Create a new recipe in ACTIVE state.
+- name: CreateSearchTokenRequest
+  fields: 1
+  description: Optional mint-request body — every field is optional and defaults apply.
+- name: CustomAttribute
+  fields: 4
+  description: One extensible descriptive attribute.
+- name: CustomIngredientAuditTrailData
+  fields: 2
+  description: Audit trail data for a custom ingredient.
+- name: CustomIngredientAuditTrailResponse
+  fields: 2
+  description: Response for the get-custom-ingredient-audit-trail endpoint.
+- name: CustomIngredientCreatedEvent
+  fields: 9
+  description: One audit-trail entry for a custom ingredient.
+- name: CustomIngredientData
+  fields: 21
+  description: 'A custom ingredient''s full data: identity, lifecycle status,'
+- name: CustomIngredientSummary
+  fields: 5
+  description: One custom ingredient in a list view — identity and status only.
+- name: CustomIngredientVersionSummary
+  fields: 8
+  description: One entry in a custom ingredient's version history list.
+- name: CustomNutrient-Input
+  fields: 4
+  description: A user-provided nutrient value on a custom ingredient.
+- name: CustomNutrient-Output
+  fields: 4
+  description: A user-provided nutrient value on a custom ingredient.
+- name: DVRoundingData
+  fields: 5
+  description: Compliant %DV rounding audit trail.
+- name: DeclaredFigure
+  fields: 2
+  description: A figure as a panel declares it, as a typed value rather than label text.
+- name: DeleteCustomIngredientResponse
+  fields: 3
+  description: Response for the delete-custom-ingredient endpoint.
+- name: DeterminationStepView
+  fields: 3
+  description: A question of the determination path and how it was answered.
+- name: EntitlementStatusResponse
+  fields: 12
+- name: ExtractIngredientsEnvelope
+  fields: 2
+  description: Response envelope for the ingredient-extraction endpoint.
+- name: ExtractIngredientsRequest
+  fields: 1
+  description: Raw pasted ingredient text to split into individual lines.
+- name: ExtractIngredientsResult
+  fields: 3
+  description: The split ingredient lines, ready to feed startIngredientResolution.
+- name: FieldDiff
+  fields: 0
+  description: Type-erased base for per-field diffs.
+- name: FillConfirmationInput
+  fields: 3
+  description: The maker's confirmation that a nutrient printed as a stated zero is right.
+- name: FoodPortion
+  fields: 5
+  description: Available serving size with gram weight.
+- name: GetAnalysisResponse
+  fields: 3
+  description: Response for get recipe nutritional analysis endpoint.
+- name: GetCustomIngredientResponse
+  fields: 3
+  description: Response for the get-custom-ingredient endpoint.
+- name: GetCustomIngredientVersionChangesData
+  fields: 2
+  description: Wire shape for the custom-ingredient version-changes payload.
+- name: GetCustomIngredientVersionChangesResponse
+  fields: 2
+  description: Standard envelope for the custom-ingredient version-changes endpoint.
+- name: GetIngredientResponse
+  fields: 16
+  description: One resolved ingredient — custom or standard, by id.
+- name: GetIngredientUsageResponse
+  fields: 2
+  description: Response for the get-ingredient-usage endpoint.
+- name: GetIngredientsResponse
+  fields: 4
+  description: Response for get recipe ingredients endpoint.
+- name: GetNutritionResponse
+  fields: 3
+  description: Response for get recipe nutrition endpoint.
+- name: GetRecipeAddedSugarsResponse
+  fields: 3
+  description: GET Added Sugars report response envelope.
+- name: GetRecipeResponse
+  fields: 3
+  description: Response for get recipe endpoint.
+- name: GetRecipeVersionChangesData
+  fields: 1
+  description: Wire shape for the version-changes payload.
+- name: GetRecipeVersionChangesResponse
+  fields: 2
+  description: Standard envelope for the version-changes endpoint.
+- name: GuidanceCheck
+  fields: 6
+  description: One plain-language check on a row or on the whole report.
+- name: HTTPValidationError
+  fields: 1
+- name: IngredientCandidate
+  fields: 11
+  description: Search candidate — raw or whole food ingredient.
+- name: IngredientConversionDetail
+  fields: 3
+  description: Conversion metadata for a single ingredient.
+- name: IngredientMatch
+  fields: 2
+  description: Candidate ingredient match from database.
+- name: IngredientPortionDetail
+  fields: 6
+  description: One serving-size portion on an ingredient, standard or custom.
+- name: IngredientSearchHit
+  fields: 7
+  description: One matched ingredient — custom or standard.
+- name: IngredientSearchQueryItem
+  fields: 2
+  description: One query within a batch search request.
+- name: IngredientSearchRequest
+  fields: 5
+  description: Search query spanning the caller's custom ingredients and the
+- name: IngredientSearchResponse
+  fields: 4
+  description: Paginated, tier-ranked ingredient search results.
+- name: IngredientSearchResult
+  fields: 5
+  description: Effective ingredient selection plus search candidates for audit context.
+- name: IngredientSearchResultGroup
+  fields: 4
+  description: Results for a single query within a batch search.
+- name: IngredientUsageEntry
+  fields: 5
+  description: One recipe that pins the queried ingredient.
+- name: IngredientsLookedUpEvent
+  fields: 10
+  description: Ingredient details looked up from food database.
+- name: IssuedLabelFile
+  fields: 4
+  description: One file issued under a record, fixed by its SHA-256.
+- name: IssuedLabelResponse
+  fields: 3
+  description: What a label said when it was issued, and the files issued under it.
+- name: KeepIngredientItem
+  fields: 2
+  description: Accept row unchanged. Carry forward from previous resolution.
+- name: LabelArtifactExportResponse
+  fields: 7
+  description: Response body for ``GET /recipes/{id}/servings/{sid}/label-export``.
+- name: LabelCompleteness
+  fields: 2
+  description: Signals whether all mandatory nutrients have calculated data.
+- name: LabelConfigurationCreatedEvent
+  fields: 9
+  description: Label configuration was created for a recipe.
+- name: LabelConfigurationData
+  fields: 6
+  description: Response data envelope.
+- name: LabelConfigurationDeletedEvent
+  fields: 8
+  description: Label configuration was removed from a recipe.
+- name: LabelConfigurationResponse
+  fields: 3
+  description: Standard response envelope.
+- name: LabelConfigurationUpdatedEvent
+  fields: 10
+  description: Label configuration was updated for a recipe.
+- name: LabelFinding
+  fields: 3
+  description: Something about the label nobody has addressed yet.
+- name: LabelFindingAcknowledgement
+  fields: 4
+  description: One finding the label carried when it was downloaded.
+- name: LabelFindingNutrient
+  fields: 2
+  description: A nutrient a finding is about.
+- name: LabelHeader
+  fields: 4
+  description: Label header with serving size information.
+- name: LabelNutrient
+  fields: 10
+  description: A single nutrient node in the label tree.
+- name: LabelProfileRef
+  fields: 3
+  description: The jurisdiction, panel format and rule set the label was checked against.
+- name: LabelProvenance
+  fields: 8
+  description: Versions of the data and software that drew a label.
+- name: LabelReadinessReport
+  fields: 8
+  description: Whether the label is ready, and why not.
+- name: ListCustomIngredientVersionsResponse
+  fields: 2
+  description: Paginated list of versions for a single custom ingredient, newest first.
+- name: ListCustomIngredientsResponse
+  fields: 2
+  description: Response for the list-custom-ingredients endpoint.
+- name: ListDiff
+  fields: 3
+  description: 'A list with stable-identity items: add/remove/modify by id.'
+- name: ListRecipeVersionsResponse
+  fields: 2
+  description: Paginated list of versions for a single recipe, newest first.
+- name: ListRecipesResponse
+  fields: 2
+  description: Response for list recipes endpoint.
+- name: ListServingsResponse
+  fields: 3
+  description: Response for list servings endpoint.
+- name: ListUsedIngredientsResponse
+  fields: 2
+  description: Response body for ``GET /ingredients/used``.
+- name: MarketNutrient
+  fields: 2
+  description: 'A nutrient''s identity within one market''s regulatory system: the'
+- name: MissingNutrient
+  fields: 2
+  description: A mandatory nutrient absent from calculated nutrition facts.
+- name: NutrientColumn
+  fields: 2
+  description: Nutrient data for one column (per-serving or per-container).
+- name: NutrientContribution
+  fields: 3
+  description: Single ingredient's contribution to a nutrient.
+- name: NutrientDetail
+  fields: 5
+  description: One nutrient value on a resolved ingredient, custom or standard.
+- name: NutrientDto
+  fields: 4
+  description: Nutrient representation for API responses.
+- name: NutrientEntryInput
+  fields: 3
+  description: Single nutrient configuration in a request.
+- name: Nutrition
+  fields: 3
+  description: Batch-level nutrition for a recipe (sum of all ingredients, not per-serving).
+- name: NutritionAnalysisNutrient
+  fields: 5
+  description: Nutrient with its ingredient contributions.
+- name: NutritionFactsData
+  fields: 5
+  description: Per-serving or per-container nutrition facts (compliant label panel).
+- name: NutritionFactsNutrient
+  fields: 6
+  description: Compliant-rounded nutrient with percent daily value.
+- name: NutritionFactsResponse
+  fields: 3
+  description: Response for nutrition facts endpoints (per-serving + per-container).
+- name: NutritionIngredient
+  fields: 5
+  description: One recipe row in the analysis ingredient list.
+- name: NutritionLabelData
+  fields: 10
+  description: Complete render-ready nutrition label.
+- name: NutritionLabelResponse
+  fields: 3
+  description: GET nutrition-label response envelope.
+- name: PaginatedMeta
+  fields: 5
+  description: Paginated response metadata.
+- name: ParseErrorDetail
+  fields: 2
+  description: Error detail for a single ingredient that failed to parse.
+- name: ParsedIngredientItem
+  fields: 9
+  description: Parse result for a single ingredient text.
+- name: PatchAddedSugarsReportRowRequest
+  fields: 5
+  description: A person's answer for one ingredient row of the Added Sugars report.
+- name: PatchAddedSugarsReportRowsRequest
+  fields: 1
+  description: Answers for several ingredient rows, saved together as one new version.
+- name: PlansResponse
+  fields: 1
+- name: PortalRequest
+  fields: 1
+- name: PortalResponse
+  fields: 1
+- name: PortionReferenceData
+  fields: 4
+  description: Food portion reference for audit trail.
+- name: PrimitiveDiff
+  fields: 3
+  description: Primitive / opaque value before and after.
+- name: ProblemDetail
+  fields: 10
+  description: RFC 7807 / 9457 Problem Details for HTTP API errors.
+- name: ProductCandidate
+  fields: 10
+  description: Search candidate — branded or packaged food product.
+- name: PurchasablePlan
+  fields: 5
+  description: A plan an organization can buy, with display + price metadata.
+- name: QuotaStatusEntry
+  fields: 5
+- name: RaccGuidedServingSizeInput
+  fields: 8
+  description: RACC-guided serving size inputs.
+- name: RaccInputs
+  fields: 7
+  description: Original regulatory-guided inputs echoed back for frontend pre-fill.
+- name: ReadinessFinding
+  fields: 8
+  description: One thing the readiness rules noticed about the label.
+- name: Recipe
+  fields: 8
+  description: Recipe metadata.
+- name: RecipeActions
+  fields: 3
+  description: Available actions for a recipe based on state and user role.
+- name: RecipeAddedSugarsConfirmedEvent
+  fields: 10
+  description: A person confirmed the recipe's Added Sugars report.
+- name: RecipeAddedSugarsData
+  fields: 3
+  description: The report of one recipe version and its confirmation state.
+- name: RecipeAddedSugarsRowAnsweredEvent
+  fields: 10
+  description: A person answered one row of the recipe's Added Sugars report.
+- name: RecipeArchivedEvent
+  fields: 9
+  description: Recipe transitioned from ACTIVE to ARCHIVED.
+- name: RecipeAtVersionResponse
+  fields: 3
+  description: Recipe state reconstructed at a specific version.
+- name: RecipeConversionStep
+  fields: 6
+  description: Step in unit conversion process.
+- name: RecipeCreatedEvent
+  fields: 8
+  description: Recipe was created. No extra fields — creation metadata is implicit.
+- name: RecipeData
+  fields: 10
+  description: Recipe with presence summary and computed action permissions.
+- name: RecipeDeletedEvent
+  fields: 9
+  description: Recipe was deleted.
+- name: RecipeIngredientMatches
+  fields: 5
+  description: All candidate matches and selected match.
+- name: RecipeIngredientResolution
+  fields: 4
+  description: Complete resolution process for one ingredient.
+- name: RecipeIngredientsConvertedEvent
+  fields: 10
+  description: Ingredient quantities converted to gram weights (Step 3 of resolve cycle).
+- name: RecipeIngredientsParsedEvent
+  fields: 10
+  description: Ingredient text was parsed into structured items (Step 1 of resolve cycle).
+- name: RecipeIngredientsSearchedEvent
+  fields: 10
+  description: Parsed ingredients were matched against the food database (Step 2 of resolve cycle).
+- name: RecipeIngredientsUpdatedEvent
+  fields: 10
+  description: Ingredient list committed (from confirm flow or direct update).
+- name: RecipeLabelArtifactCreatedEvent
+  fields: 12
+  description: A label image artifact was generated and stored for a serving.
+- name: RecipeLabelArtifactDownloadedEvent
+  fields: 16
+  description: A presigned download was issued for one or more label image artifacts.
+- name: RecipeListItem
+  fields: 9
+  description: Recipe item for list views — basic metadata only.
+- name: RecipeListMeta
+  fields: 11
+  description: Paginated meta for ``GET /recipes``, echoing the effective sort/filter.
+- name: RecipeMetadataUpdatedEvent
+  fields: 10
+  description: Recipe metadata fields changed (name, demographic, regulatory authority, etc.).
+- name: RecipeNutrient
+  fields: 5
+  description: Nutrient with calculated total amount (recipe-total, no %DV).
+- name: RecipeNutritionAnalysis
+  fields: 2
+  description: Nutritional analysis grouped by nutrient, with one ingredient entry per recipe row.
+- name: RecipeNutritionCalculatedEvent
+  fields: 8
+  description: Member explicitly triggered a nutrition calculation.
+- name: RecipeParsedIngredient
+  fields: 4
+  description: Parsed ingredient components.
+- name: RecipePublishedEvent
+  fields: 8
+  description: Recipe was published (legacy event — predates the versioning design).
+- name: RecipeRestoredEvent
+  fields: 9
+  description: A prior version was restored as a new version of the recipe.
+- name: RecipeSearchHit
+  fields: 5
+  description: One matched recipe.
+- name: RecipeSearchRequest
+  fields: 3
+  description: Search query for the caller's accessible recipes.
+- name: RecipeSearchResponse
+  fields: 3
+  description: Paginated recipe search results.
+- name: RecipeServingAddedEvent
+  fields: 13
+  description: 'Audit event: serving was added to a recipe.'
+- name: RecipeServingDeletedEvent
+  fields: 13
+  description: 'Audit event: a serving was deleted from a recipe.'
+- name: RecipeServingNutritionCalculatedEvent
+  fields: 9
+  description: Per-serving nutrition facts were computed for a serving.
+- name: RecipeServingUpdatedEvent
+  fields: 13
+  description: 'Audit event: serving was updated (replaced) on a recipe.'
+- name: RecipeSummary
+  fields: 5
+  description: Derived summary of a recipe's sub-resource presence and freshness.
+- name: RecipeUnarchivedEvent
+  fields: 9
+  description: Recipe transitioned from ARCHIVED back to ACTIVE.
+- name: RecipeVersionCreatedEvent
+  fields: 9
+  description: A new immutable version snapshot was committed for the recipe.
+- name: RecipeVersionSummary
+  fields: 9
+  description: One entry in a recipe's version history list.
+- name: RecordReferenceFoodViewRequest
+  fields: 11
+  description: A food the member opened, or a portion change in an open food.
+- name: RecordReferenceServingSizeViewRequest
+  fields: 4
+  description: A serving size category the member opened.
+- name: ReferenceAmount
+  fields: 2
+  description: A regulatory reference amount and its unit.
+- name: ReferenceAmountChange
+  fields: 2
+  description: The serving's category now states a different reference amount.
+- name: ReferenceFood
+  fields: 12
+  description: A food the member opened, with its Saved and Recent state.
+- name: ReferenceFoodList
+  fields: 2
+  description: One page of foods.
+- name: ReferenceFoodPer100g
+  fields: 4
+  description: Headline nutrients per 100 g of the food. Each is `null` when unknown.
+- name: ReferenceFoodPortion
+  fields: 2
+  description: An amount of the food, as shown to the member.
+- name: ReferenceServingSize
+  fields: 12
+  description: A serving size category the member opened, with its Saved and Recent state.
+- name: ReferenceServingSizeList
+  fields: 2
+  description: One page of serving size categories.
+- name: RemoveIngredientItem
+  fields: 3
+  description: Delete this ingredient row.
+- name: RemovedDiff
+  fields: 2
+  description: Was a value, now ``None``.
+- name: ReplaceIngredientItem
+  fields: 5
+  description: Swap the matched food item. Lookup Ingredient → Convert Units.
+- name: ResolutionCompletedEvent
+  fields: 10
+  description: Resolution completed — full state snapshot.
+- name: ResolutionConfirmedEvent
+  fields: 9
+  description: Resolution confirmed — ingredients saved to recipe.
+- name: ResolutionCostPreview
+  fields: 5
+  description: Non-blocking preview of what resolving the extracted lines will cost.
+- name: ResolutionRequestedEvent
+  fields: 9
+  description: Resolution requested — caller's command stored verbatim.
+- name: ResolutionSummary
+  fields: 4
+  description: Auto-computed summary of resolution state.
+- name: ResolveIngredientsEnvelope
+  fields: 2
+  description: Response envelope for resolve and resolution read endpoints.
+- name: ResolveIngredientsListEnvelope
+  fields: 2
+  description: Response envelope for list resolutions endpoint.
+- name: ResolveIngredientsRequest
+  fields: 2
+  description: Request body for POST /recipes/{id}/ingredients/resolve.
+- name: ResolveIngredientsResponse
+  fields: 6
+  description: Response from POST /resolve, GET /latest-resolution, GET /resolutions.
+- name: ResolvedIngredientRow
+  fields: 6
+  description: Single ingredient row in the resolution response.
+- name: ResolvedNutrientEntry
+  fields: 9
+  description: Single nutrient in the fully resolved GET response.
+- name: RestoreCustomIngredientRequest
+  fields: 1
+  description: Request body for `POST /custom-ingredients/{custom_ingredient_id}/restore`.
+- name: RestoreRecipeRequest
+  fields: 1
+  description: Request body for ``POST /recipes/{recipe_id}/restore``.
+- name: SearchTokenEntry
+  fields: 4
+  description: One collection's scoped token, its name, and how to query it.
+- name: SearchTokenQueryDescriptor
+  fields: 12
+  description: How the browser must query one collection with its own scoped token.
+- name: SearchTokenResponse
+  fields: 5
+  description: Per-caller org search tokens, one independent entry per searchable collection.
+- name: Serving
+  fields: 7
+  description: Serving with serving size and nutrition facts availability.
+- name: ServingNutritionFactsAnalysisData
+  fields: 7
+  description: Per-serving nutrition facts analysis with rounding audit trail.
+- name: ServingNutritionFactsAnalysisNutrient
+  fields: 9
+  description: Unified serving-level nutrient — strict superset of NutritionAnalysisNutrient.
+- name: ServingNutritionFactsAnalysisResponse
+  fields: 3
+  description: Response for nutrition facts analysis endpoint.
+- name: ServingResponse
+  fields: 3
+  description: Response for serving endpoints (add + get).
+- name: ServingSize
+  fields: 5
+  description: Compliant serving size computed from input.
+- name: SetCustomIngredientItem
+  fields: 8
+  description: A recipe row that uses one of the user's custom ingredients.
+- name: SetCustomIngredientNutritionRequest
+  fields: 1
+  description: Replace a custom ingredient's full nutrient list.
+- name: SetCustomIngredientNutritionResponse
+  fields: 3
+  description: Response for the set-custom-ingredient-nutrition endpoint.
+- name: SetCustomIngredientServingRequest
+  fields: 5
+  description: Replace a custom ingredient's serving / gram basis.
+- name: SetCustomIngredientServingResponse
+  fields: 3
+  description: Response for the set-custom-ingredient-serving endpoint.
+- name: SetFormIngredientItem
+  fields: 13
+- name: SetRecipeIngredientsRequest
+  fields: 2
+  description: 'Full-list save: add / edit / delete / reorder in one commit.'
+- name: SetResolutionIngredientItem
+  fields: 9
+- name: Staleness
+  fields: 2
+  description: Staleness information for the nutrition calculation.
+- name: StudioMeta
+  fields: 3
+  description: Response metadata.
+- name: SubModelDiff
+  fields: 2
+  description: A sub-model differs field-by-field.
+- name: SubmitFeedbackRequest
+  fields: 5
+  description: A bug report or product idea, in the user's own words.
+- name: SubmitFeedbackResponse
+  fields: 3
+  description: Acknowledgement of a received submission.
+- name: SuggestAddedSugarsData
+  fields: 7
+  description: The updated report, plus how this request went.
+- name: SuggestAddedSugarsEnvelope
+  fields: 3
+  description: The shared report envelope, with the outcome of the request in `data`.
+- name: SuggestAddedSugarsRequest
+  fields: 2
+  description: The open rows a person wants suggestions for.
+- name: UnarchiveCustomIngredientResponse
+  fields: 3
+  description: Response for the unarchive-custom-ingredient endpoint.
+- name: UnitConversionResult
+  fields: 4
+  description: Effective gram weight with provenance indicator.
+- name: UpdateCustomIngredientMetadataRequest
+  fields: 2
+  description: Update custom ingredient metadata fields.
+- name: UpdateCustomIngredientMetadataResponse
+  fields: 3
+  description: Response for the update-custom-ingredient-metadata endpoint.
+- name: UpdateIngredientGramsItem
+  fields: 4
+  description: User-typed gram weight. Overrides the conversion pipeline.
+- name: UpdateIngredientNameItem
+  fields: 4
+  description: Rename the display label. Cosmetic only — no pipeline steps.
+- name: UpdateIngredientQuantityItem
+  fields: 5
+  description: Change amount and/or unit. Re-converts with current ingredient.
+- name: UpdateIngredientTextItem
+  fields: 6
+  description: 'Re-write the ingredient text. Full pipeline: Parse Text → Search Ingredient → Convert Units.'
+- name: UpdateIngredientsData
+  fields: 6
+  description: Data payload for update ingredients response.
+- name: UpdateIngredientsResponse
+  fields: 3
+  description: Response for update ingredients endpoint.
+- name: UpdateOrgSettingsRequest
+  fields: 2
+  description: Partial update of the caller's own organization settings.
+- name: UpdateOrgSettingsResponse
+  fields: 2
+  description: The organization's settings after the change.
+- name: UpdateRecipeMetadataRequest
+  fields: 4
+  description: Update recipe metadata fields (name, country, demographic).
+- name: UpdateServingData
+  fields: 3
+  description: Data payload for update serving response.
+- name: UpdateServingRequest
+  fields: 2
+  description: Replace a serving on a recipe (PUT semantics — full replacement by serving ID).
+- name: UpdateServingResponse
+  fields: 3
+  description: Response for updateRecipeServing.
+- name: UpsertLabelConfigurationRequest
+  fields: 2
+  description: PUT request body for idempotent create-or-update.
+- name: UsageResponse
+  fields: 8
+  description: One organization's usage for one billing cycle, and what it comes to.
+- name: UsedIngredientListItem
+  fields: 6
+  description: 'One row: an ingredient the org has used, standard or custom.'
+- name: UsedIngredientsListMeta
+  fields: 11
+  description: Pagination + resolved sort/filter state echoed on every response.
+- name: UserProvidedServingSizeInput
+  fields: 5
+  description: User-supplied serving size — manual household + metric values.
+- name: ValidationError
+  fields: 5
+- name: ValueRoundingData
+  fields: 6
+  description: Compliant value rounding audit trail.
+- name: ZeroFilledNote
+  fields: 5
+  description: A nutrient the label prints as a stated zero, and the maker's confirmation of it.
+relationships:
+- from: AcknowledgedFillView
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: AddServingData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: AddServingData
+  to: Serving
+  type: has_one
+  via: serving
+- from: AddServingRequest
+  to: UserProvidedServingSizeInput
+  type: has_one
+  via: serving_size
+- from: AddServingRequest
+  to: RaccGuidedServingSizeInput
+  type: has_one
+  via: serving_size
+- from: AddServingResponse
+  to: AddServingData
+  type: has_one
+  via: data
+- from: AddServingResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: AddedSugarFinding
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: AddedSugarsCaller
+  to: Actor
+  type: has_one
+  via: actor
+- from: AddedSugarsDeclaration
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: AddedSugarsDeclaration
+  to: DeclaredFigure
+  type: has_one
+  via: declared_grams
+- from: AddedSugarsDeclaration
+  to: DeclaredFigure
+  type: has_one
+  via: total_sugars_declared_grams
+- from: AddedSugarsDerivedView
+  to: DeterminationStepView
+  type: has_many
+  via: path
+- from: AddedSugarsDerivedView
+  to: Citation
+  type: has_one
+  via: citation
+- from: AddedSugarsDeterminationView
+  to: AddedSugarsRowView
+  type: has_many
+  via: rows
+- from: AddedSugarsDeterminationView
+  to: AddedSugarsTotals
+  type: has_one
+  via: totals
+- from: AddedSugarsDeterminationView
+  to: AddedSugarsDeclaration
+  type: has_many
+  via: declarations
+- from: AddedSugarsDeterminationView
+  to: AddedSugarFinding
+  type: has_many
+  via: findings
+- from: AddedSugarsPresentation
+  to: AddedSugarsReadiness
+  type: has_one
+  via: readiness
+- from: AddedSugarsReportView
+  to: AddedSugarsEngine
+  type: has_one
+  via: engine
+- from: AddedSugarsReportView
+  to: AddedSugarsDeterminationView
+  type: has_one
+  via: determination
+- from: AddedSugarsReportView
+  to: AddedSugarsPresentation
+  type: has_one
+  via: presentation
+- from: AddedSugarsReportView
+  to: GuidanceCheck
+  type: has_many
+  via: checks
+- from: AddedSugarsRowView
+  to: AddedSugarsRowIngredientView
+  type: has_one
+  via: ingredient
+- from: AddedSugarsRowView
+  to: AddedSugarsDerivedView
+  type: has_one
+  via: derived
+- from: AddedSugarsRowView
+  to: AddedSugarsSuggestedView
+  type: has_one
+  via: suggested
+- from: AddedSugarsRowView
+  to: AddedSugarsCaller
+  type: has_one
+  via: caller
+- from: AddedSugarsRowView
+  to: AddedSugarsEffectiveView
+  type: has_one
+  via: effective
+- from: AddedSugarsRowView
+  to: GuidanceCheck
+  type: has_many
+  via: checks
+- from: AddedSugarsRowsRefusedProblem
+  to: AddedSugarsRowRefusal
+  type: has_many
+  via: rows
+- from: AddedSugarsSuggestedView
+  to: Citation
+  type: has_one
+  via: citation
+- from: AddedSugarsSuggestedView
+  to: AddedSugarsSuggestionProvenance
+  type: has_one
+  via: provenance
+- from: ArchiveCustomIngredientResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: ArchiveCustomIngredientResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: AuditTrailData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: AuditTrailData
+  to: RecipeCreatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeMetadataUpdatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeIngredientsUpdatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeArchivedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeDeletedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeUnarchivedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeNutritionCalculatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeIngredientsParsedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeIngredientsSearchedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeIngredientsConvertedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: ResolutionRequestedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: ResolutionCompletedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: IngredientsLookedUpEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: ResolutionConfirmedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeServingAddedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeServingUpdatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeServingDeletedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: LabelConfigurationCreatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: LabelConfigurationUpdatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: LabelConfigurationDeletedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeVersionCreatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipePublishedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeServingNutritionCalculatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeRestoredEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeLabelArtifactCreatedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeLabelArtifactDownloadedEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeAddedSugarsRowAnsweredEvent
+  type: has_many
+  via: events
+- from: AuditTrailData
+  to: RecipeAddedSugarsConfirmedEvent
+  type: has_many
+  via: events
+- from: AuditTrailResponse
+  to: AuditTrailData
+  type: has_one
+  via: data
+- from: AuditTrailResponse
+  to: PaginatedMeta
+  type: has_one
+  via: meta
+- from: ComputeConversionsRequest
+  to: ConversionRequestItem
+  type: has_many
+  via: items
+- from: ComputeNutritionData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: ComputeNutritionData
+  to: Nutrition
+  type: has_one
+  via: nutrition
+- from: ComputeNutritionFactsData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: ComputeNutritionFactsData
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: ComputeNutritionFactsData
+  to: NutritionFactsData
+  type: has_one
+  via: per_serving
+- from: ComputeNutritionFactsData
+  to: NutritionFactsData
+  type: has_one
+  via: per_container
+- from: ComputeNutritionFactsResponse
+  to: ComputeNutritionFactsData
+  type: has_one
+  via: data
+- from: ComputeNutritionFactsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ComputeNutritionResponse
+  to: ComputeNutritionData
+  type: has_one
+  via: data
+- from: ComputeNutritionResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ConfirmCustomIngredientResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: ConfirmCustomIngredientResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ConfirmRecipeAddedSugarsData
+  to: AddedSugarsReportView
+  type: has_one
+  via: report
+- from: ConfirmRecipeAddedSugarsData
+  to: AddedSugarsConfirmationRecord
+  type: has_one
+  via: confirmation_record
+- from: ConfirmRecipeAddedSugarsResponse
+  to: ConfirmRecipeAddedSugarsData
+  type: has_one
+  via: data
+- from: ConfirmRecipeAddedSugarsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ConfirmedFillRecord
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: ConvertedIngredient
+  to: RecipeConversionStep
+  type: has_many
+  via: steps
+- from: CreateCustomIngredientResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: CreateCustomIngredientResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: CustomIngredientAuditTrailData
+  to: CustomIngredientCreatedEvent
+  type: has_many
+  via: events
+- from: CustomIngredientAuditTrailResponse
+  to: CustomIngredientAuditTrailData
+  type: has_one
+  via: data
+- from: CustomIngredientAuditTrailResponse
+  to: PaginatedMeta
+  type: has_one
+  via: meta
+- from: CustomIngredientCreatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: CustomIngredientData
+  to: CustomNutrient-Output
+  type: has_many
+  via: nutrients
+- from: CustomIngredientData
+  to: CustomAttribute
+  type: has_many
+  via: attributes
+- from: CustomIngredientData
+  to: ArtifactRef
+  type: has_many
+  via: artifacts
+- from: DeleteCustomIngredientResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: DeleteCustomIngredientResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ExtractIngredientsEnvelope
+  to: ExtractIngredientsResult
+  type: has_one
+  via: data
+- from: ExtractIngredientsEnvelope
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ExtractIngredientsResult
+  to: ResolutionCostPreview
+  type: has_one
+  via: resolution_cost_preview
+- from: FillConfirmationInput
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: GetAnalysisResponse
+  to: RecipeNutritionAnalysis
+  type: has_one
+  via: data
+- from: GetAnalysisResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetCustomIngredientResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: GetCustomIngredientResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetCustomIngredientVersionChangesResponse
+  to: GetCustomIngredientVersionChangesData
+  type: has_one
+  via: data
+- from: GetCustomIngredientVersionChangesResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetIngredientResponse
+  to: NutrientDetail
+  type: has_many
+  via: nutrients
+- from: GetIngredientResponse
+  to: IngredientPortionDetail
+  type: has_many
+  via: portions
+- from: GetIngredientUsageResponse
+  to: IngredientUsageEntry
+  type: has_many
+  via: data
+- from: GetIngredientUsageResponse
+  to: PaginatedMeta
+  type: has_one
+  via: meta
+- from: GetIngredientsResponse
+  to: ApiResolutionIngredient
+  type: has_many
+  via: data
+- from: GetIngredientsResponse
+  to: ApiFormIngredient
+  type: has_many
+  via: data
+- from: GetIngredientsResponse
+  to: ApiCustomIngredientRef
+  type: has_many
+  via: data
+- from: GetIngredientsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetNutritionResponse
+  to: Nutrition
+  type: has_one
+  via: data
+- from: GetNutritionResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetRecipeAddedSugarsResponse
+  to: RecipeAddedSugarsData
+  type: has_one
+  via: data
+- from: GetRecipeAddedSugarsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetRecipeResponse
+  to: RecipeData
+  type: has_one
+  via: data
+- from: GetRecipeResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GetRecipeVersionChangesResponse
+  to: GetRecipeVersionChangesData
+  type: has_one
+  via: data
+- from: GetRecipeVersionChangesResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: GuidanceCheck
+  to: Citation
+  type: has_one
+  via: citation
+- from: HTTPValidationError
+  to: ValidationError
+  type: has_many
+  via: detail
+- from: IngredientConversionDetail
+  to: PortionReferenceData
+  type: has_one
+  via: portion_reference
+- from: IngredientSearchResult
+  to: IngredientCandidate
+  type: has_many
+  via: candidates
+- from: IngredientSearchResult
+  to: ProductCandidate
+  type: has_many
+  via: candidates
+- from: IngredientSearchResultGroup
+  to: IngredientSearchHit
+  type: has_many
+  via: results
+- from: IngredientUsageEntry
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: IngredientsLookedUpEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: IssuedLabelResponse
+  to: IssuedLabelFile
+  type: has_many
+  via: files
+- from: IssuedLabelResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: LabelArtifactExportResponse
+  to: LabelProvenance
+  type: has_one
+  via: provenance
+- from: LabelArtifactExportResponse
+  to: ArtifactResult
+  type: has_many
+  via: artifacts
+- from: LabelArtifactExportResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: LabelCompleteness
+  to: MissingNutrient
+  type: has_many
+  via: missing_mandatory
+- from: LabelConfigurationCreatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: LabelConfigurationData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: LabelConfigurationData
+  to: ResolvedNutrientEntry
+  type: has_many
+  via: nutrients
+- from: LabelConfigurationData
+  to: AcknowledgedFillView
+  type: has_many
+  via: acknowledged_fills
+- from: LabelConfigurationDeletedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: LabelConfigurationResponse
+  to: LabelConfigurationData
+  type: has_one
+  via: data
+- from: LabelConfigurationResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: LabelConfigurationUpdatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: LabelConfigurationUpdatedEvent
+  to: ConfirmedFillRecord
+  type: has_many
+  via: fills_confirmed
+- from: LabelFinding
+  to: LabelFindingNutrient
+  type: has_many
+  via: nutrients
+- from: LabelProvenance
+  to: AddedSugarsFinding
+  type: has_one
+  via: added_sugars
+- from: LabelProvenance
+  to: LabelFinding
+  type: has_many
+  via: findings
+- from: LabelProvenance
+  to: ZeroFilledNote
+  type: has_many
+  via: zero_filled
+- from: LabelReadinessReport
+  to: LabelProfileRef
+  type: has_one
+  via: profile
+- from: LabelReadinessReport
+  to: ReadinessFinding
+  type: has_many
+  via: findings
+- from: ListCustomIngredientVersionsResponse
+  to: CustomIngredientVersionSummary
+  type: has_many
+  via: data
+- from: ListCustomIngredientVersionsResponse
+  to: PaginatedMeta
+  type: has_one
+  via: meta
+- from: ListCustomIngredientsResponse
+  to: CustomIngredientSummary
+  type: has_many
+  via: data
+- from: ListCustomIngredientsResponse
+  to: PaginatedMeta
+  type: has_one
+  via: meta
+- from: ListRecipeVersionsResponse
+  to: RecipeVersionSummary
+  type: has_many
+  via: data
+- from: ListRecipeVersionsResponse
+  to: PaginatedMeta
+  type: has_one
+  via: meta
+- from: ListRecipesResponse
+  to: RecipeListItem
+  type: has_many
+  via: data
+- from: ListRecipesResponse
+  to: RecipeListMeta
+  type: has_one
+  via: meta
+- from: ListServingsResponse
+  to: Serving
+  type: has_many
+  via: data
+- from: ListServingsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ListUsedIngredientsResponse
+  to: UsedIngredientListItem
+  type: has_many
+  via: data
+- from: ListUsedIngredientsResponse
+  to: UsedIngredientsListMeta
+  type: has_one
+  via: meta
+- from: NutrientColumn
+  to: LabelNutrient
+  type: has_many
+  via: nutrients
+- from: Nutrition
+  to: RecipeNutrient
+  type: has_many
+  via: nutrients
+- from: NutritionAnalysisNutrient
+  to: NutrientContribution
+  type: has_many
+  via: contributions
+- from: NutritionFactsData
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: NutritionFactsData
+  to: NutritionFactsNutrient
+  type: has_many
+  via: nutrients
+- from: NutritionFactsResponse
+  to: NutritionFactsData
+  type: has_one
+  via: data
+- from: NutritionFactsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: NutritionLabelData
+  to: LabelHeader
+  type: has_one
+  via: header
+- from: NutritionLabelData
+  to: NutrientColumn
+  type: has_one
+  via: per_serving
+- from: NutritionLabelData
+  to: NutrientColumn
+  type: has_one
+  via: per_container
+- from: NutritionLabelData
+  to: Staleness
+  type: has_one
+  via: staleness
+- from: NutritionLabelData
+  to: LabelCompleteness
+  type: has_one
+  via: completeness
+- from: NutritionLabelData
+  to: LabelReadinessReport
+  type: has_one
+  via: readiness
+- from: NutritionLabelData
+  to: AddedSugarsFinding
+  type: has_one
+  via: added_sugars
+- from: NutritionLabelData
+  to: LabelFinding
+  type: has_many
+  via: findings
+- from: NutritionLabelResponse
+  to: NutritionLabelData
+  type: has_one
+  via: data
+- from: NutritionLabelResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ParsedIngredientItem
+  to: ParseErrorDetail
+  type: has_one
+  via: error
+- from: PatchAddedSugarsReportRowsRequest
+  to: AddedSugarsRowAnswerItem
+  type: has_many
+  via: items
+- from: PlansResponse
+  to: PurchasablePlan
+  type: has_many
+  via: plans
+- from: PurchasablePlan
+  to: BillingPrice
+  type: has_one
+  via: price
+- from: RecipeAddedSugarsConfirmedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeAddedSugarsData
+  to: AddedSugarsReportView
+  type: has_one
+  via: report
+- from: RecipeAddedSugarsRowAnsweredEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeArchivedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeAtVersionResponse
+  to: Recipe
+  type: has_one
+  via: data
+- from: RecipeAtVersionResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: RecipeCreatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeData
+  to: RecipeSummary
+  type: has_one
+  via: summary
+- from: RecipeData
+  to: RecipeActions
+  type: has_one
+  via: actions
+- from: RecipeDeletedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeIngredientMatches
+  to: IngredientMatch
+  type: has_many
+  via: candidates
+- from: RecipeIngredientMatches
+  to: IngredientMatch
+  type: has_one
+  via: selected_match
+- from: RecipeIngredientResolution
+  to: RecipeParsedIngredient
+  type: has_one
+  via: parsed
+- from: RecipeIngredientResolution
+  to: ConvertedIngredient
+  type: has_one
+  via: converted
+- from: RecipeIngredientResolution
+  to: RecipeIngredientMatches
+  type: has_one
+  via: matches
+- from: RecipeIngredientsConvertedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeIngredientsParsedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeIngredientsSearchedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeIngredientsUpdatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeLabelArtifactCreatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeLabelArtifactCreatedEvent
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: RecipeLabelArtifactDownloadedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeLabelArtifactDownloadedEvent
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: RecipeMetadataUpdatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeNutritionAnalysis
+  to: NutritionIngredient
+  type: has_many
+  via: ingredients
+- from: RecipeNutritionAnalysis
+  to: NutritionAnalysisNutrient
+  type: has_many
+  via: nutrients
+- from: RecipeNutritionCalculatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipePublishedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeRestoredEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeSearchResponse
+  to: RecipeSearchHit
+  type: has_many
+  via: results
+- from: RecipeServingAddedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeServingAddedEvent
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: RecipeServingDeletedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeServingDeletedEvent
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: RecipeServingNutritionCalculatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeServingNutritionCalculatedEvent
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: RecipeServingUpdatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeServingUpdatedEvent
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: RecipeUnarchivedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecipeVersionCreatedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: RecordReferenceFoodViewRequest
+  to: ReferenceFoodPer100g
+  type: has_one
+  via: per_100g
+- from: RecordReferenceFoodViewRequest
+  to: ReferenceFoodPortion
+  type: has_one
+  via: portion
+- from: ReferenceAmountChange
+  to: ReferenceAmount
+  type: has_one
+  via: previous
+- from: ReferenceAmountChange
+  to: ReferenceAmount
+  type: has_one
+  via: current
+- from: ReferenceFood
+  to: ReferenceFoodPortion
+  type: has_one
+  via: last_portion
+- from: ReferenceFood
+  to: ReferenceFoodPer100g
+  type: has_one
+  via: per_100g
+- from: ReferenceFoodList
+  to: ReferenceFood
+  type: has_many
+  via: items
+- from: ReferenceServingSizeList
+  to: ReferenceServingSize
+  type: has_many
+  via: items
+- from: ResolutionCompletedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: ResolutionConfirmedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: ResolutionRequestedEvent
+  to: ActorData
+  type: has_one
+  via: actor
+- from: ResolveIngredientsEnvelope
+  to: ResolveIngredientsResponse
+  type: has_one
+  via: data
+- from: ResolveIngredientsEnvelope
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ResolveIngredientsListEnvelope
+  to: ResolveIngredientsResponse
+  type: has_many
+  via: data
+- from: ResolveIngredientsListEnvelope
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ResolveIngredientsRequest
+  to: AddIngredientItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: KeepIngredientItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: RemoveIngredientItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: ReplaceIngredientItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: UpdateIngredientTextItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: UpdateIngredientNameItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: UpdateIngredientQuantityItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsRequest
+  to: UpdateIngredientGramsItem
+  type: has_many
+  via: items
+- from: ResolveIngredientsResponse
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: ResolveIngredientsResponse
+  to: ResolutionSummary
+  type: has_one
+  via: summary
+- from: ResolveIngredientsResponse
+  to: ResolvedIngredientRow
+  type: has_many
+  via: rows
+- from: ResolvedIngredientRow
+  to: ParsedIngredientItem
+  type: has_one
+  via: parsed
+- from: ResolvedIngredientRow
+  to: IngredientSearchResult
+  type: has_one
+  via: search
+- from: ResolvedIngredientRow
+  to: UnitConversionResult
+  type: has_one
+  via: unit_conversion
+- from: SearchTokenEntry
+  to: SearchTokenQueryDescriptor
+  type: has_one
+  via: query
+- from: Serving
+  to: ServingSize
+  type: has_one
+  via: serving_size
+- from: Serving
+  to: RaccInputs
+  type: has_one
+  via: racc_inputs
+- from: ServingNutritionFactsAnalysisData
+  to: Serving
+  type: belongs_to
+  via: serving_id
+- from: ServingNutritionFactsAnalysisData
+  to: NutritionIngredient
+  type: has_many
+  via: ingredients
+- from: ServingNutritionFactsAnalysisData
+  to: ServingNutritionFactsAnalysisNutrient
+  type: has_many
+  via: nutrients
+- from: ServingNutritionFactsAnalysisNutrient
+  to: NutrientContribution
+  type: has_many
+  via: contributions
+- from: ServingNutritionFactsAnalysisNutrient
+  to: ValueRoundingData
+  type: has_one
+  via: value_rounding
+- from: ServingNutritionFactsAnalysisNutrient
+  to: DVRoundingData
+  type: has_one
+  via: dv_rounding
+- from: ServingNutritionFactsAnalysisResponse
+  to: ServingNutritionFactsAnalysisData
+  type: has_one
+  via: data
+- from: ServingNutritionFactsAnalysisResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: ServingResponse
+  to: Serving
+  type: has_one
+  via: data
+- from: ServingResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: SetCustomIngredientNutritionRequest
+  to: CustomNutrient-Input
+  type: has_many
+  via: nutrients
+- from: SetCustomIngredientNutritionResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: SetCustomIngredientNutritionResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: SetCustomIngredientServingResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: SetCustomIngredientServingResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: SetRecipeIngredientsRequest
+  to: SetResolutionIngredientItem
+  type: has_many
+  via: items
+- from: SetRecipeIngredientsRequest
+  to: SetFormIngredientItem
+  type: has_many
+  via: items
+- from: SetRecipeIngredientsRequest
+  to: SetCustomIngredientItem
+  type: has_many
+  via: items
+- from: SubmitFeedbackRequest
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: SuggestAddedSugarsData
+  to: AddedSugarsReportView
+  type: has_one
+  via: report
+- from: SuggestAddedSugarsEnvelope
+  to: SuggestAddedSugarsData
+  type: has_one
+  via: data
+- from: SuggestAddedSugarsEnvelope
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: UnarchiveCustomIngredientResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: UnarchiveCustomIngredientResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: UnitConversionResult
+  to: ConversionStep
+  type: has_many
+  via: steps
+- from: UpdateCustomIngredientMetadataResponse
+  to: CustomIngredientData
+  type: has_one
+  via: data
+- from: UpdateCustomIngredientMetadataResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: UpdateIngredientsData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: UpdateIngredientsData
+  to: ApiResolutionIngredient
+  type: has_many
+  via: ingredients
+- from: UpdateIngredientsData
+  to: ApiFormIngredient
+  type: has_many
+  via: ingredients
+- from: UpdateIngredientsData
+  to: ApiCustomIngredientRef
+  type: has_many
+  via: ingredients
+- from: UpdateIngredientsResponse
+  to: UpdateIngredientsData
+  type: has_one
+  via: data
+- from: UpdateIngredientsResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: UpdateServingData
+  to: Recipe
+  type: belongs_to
+  via: recipe_id
+- from: UpdateServingData
+  to: Serving
+  type: has_one
+  via: serving
+- from: UpdateServingData
+  to: ReferenceAmountChange
+  type: has_one
+  via: reference_amount_changed
+- from: UpdateServingRequest
+  to: UserProvidedServingSizeInput
+  type: has_one
+  via: serving_size
+- from: UpdateServingRequest
+  to: RaccGuidedServingSizeInput
+  type: has_one
+  via: serving_size
+- from: UpdateServingResponse
+  to: UpdateServingData
+  type: has_one
+  via: data
+- from: UpdateServingResponse
+  to: StudioMeta
+  type: has_one
+  via: meta
+- from: UsageResponse
+  to: AllowanceView
+  type: has_one
+  via: allowance
+- from: UsageResponse
+  to: CapabilityUsage
+  type: has_many
+  via: by_capability

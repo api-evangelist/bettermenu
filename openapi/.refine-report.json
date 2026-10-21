@@ -1,0 +1,22 @@
+{
+  "provider": "bettermenu",
+  "sources": [
+    "_original/bettermenu-api-openapi.json"
+  ],
+  "outputs": [
+    "bettermenu-conversions-api-openapi.yml",
+    "bettermenu-entitlements-api-openapi.yml",
+    "bettermenu-org-api-openapi.yml",
+    "bettermenu-studio-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bettermenu-api-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bettermenu-api-openapi.json: declared missing tag: Conversions",
+    "apis.yml register: written (+4 apis, 4 total)"
+  ],
+  "skipped": []
+}

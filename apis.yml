@@ -1,32 +1,68 @@
 aid: bettermenu
+
 name: BetterMenu
-description: 'BetterMenu provides a cloud‑based recipe formulation platform for food manufacturers, enabling rapid product development with built‑in FDA‑compliant nutrition labeling. Users can input ingredient lists and instantly generate nutrition facts panels, streamline formulation, and accelerate time‑to‑market while ensuring regulatory compliance.'
+
+image: https://bettermenu.live/images/og-image.png
+
+description: BetterMenu provides a cloud‑based recipe formulation platform for food manufacturers, enabling rapid product development with built‑in
+  FDA‑compliant nutrition labeling. Users can input ingredient lists and instantly generate nutrition facts panels, streamline formulation, and
+  accelerate time‑to‑market while ensuring regulatory compliance. The service offers a web‑based interface, pricing plans, and integrates FDA
+  guidelines to help bring food products to market faster.
+
 url: https://raw.githubusercontent.com/api-evangelist/bettermenu/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:new-submission
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-21 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-21'
+
 modified: '2026-10-21'
+
 tags:
 - FoodTech
 - RecipeFormulation
 - FDACompliance
 - SaaS
 - Cloud
-apis: []
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: Plans
+  url: plans/bettermenu-plans-pricing.yml
+- type: DataModel
+  url: data-model/bettermenu-data-model.yml
+- type: ErrorCatalog
+  url: errors/bettermenu-problem-types.yml
+- type: LLMsTxt
+  url: llms/bettermenu-llms.txt
+- type: SecurityTxt
+  url: well-known/bettermenu-www-security.txt
+- type: WellKnown
+  url: well-known/bettermenu-well-known.yml
+- type: Hosts
+  url: hosts/bettermenu-hosts.yml
+- type: Vendors
+  url: vendors/bettermenu-vendors.yml
+- type: ChangeLog
+  url: https://bettermenu.live/changelog/
 - type: DomainSecurity
   url: security/bettermenu-domain-security.yml
 - type: Website
   url: https://bettermenu.live/
 - type: Documentation
+  url: https://docs.bettermenu.live/docs/api
+- type: APIReference
   url: https://docs.bettermenu.live/docs/api
 - type: Pricing
   url: https://bettermenu.live/pricing/
@@ -38,6 +74,67 @@ common:
   url: https://bettermenu.live/support/
 - type: Blog
   url: https://bettermenu.live/blog/
+
+apis:
+- aid: bettermenu:bettermenu-conversions-api
+  name: BetterMenu Conversions API
+  description: The Conversions API from BetterMenu — 1 operation(s) for conversions.
+  humanURL: https://docs.bettermenu.live/docs/api
+  baseURL: https://api.bettermenu.live
+  tags:
+  - Conversions
+  properties:
+  - type: OpenAPI
+    url: openapi/bettermenu-conversions-api-openapi.yml
+- aid: bettermenu:bettermenu-entitlements-api
+  name: BetterMenu Entitlements API
+  description: Account entitlement and plan status.
+  humanURL: https://docs.bettermenu.live/docs/api
+  baseURL: https://api.bettermenu.live
+  tags:
+  - Entitlements
+  properties:
+  - type: OpenAPI
+    url: openapi/bettermenu-entitlements-api-openapi.yml
+- aid: bettermenu:bettermenu-org-api
+  name: BetterMenu Org API
+  description: Organization-level capabilities spanning multiple resource types (e.g. search).
+  humanURL: https://docs.bettermenu.live/docs/api
+  baseURL: https://api.bettermenu.live
+  tags:
+  - Org
+  properties:
+  - type: OpenAPI
+    url: openapi/bettermenu-org-api-openapi.yml
+- aid: bettermenu:bettermenu-studio-api
+  name: BetterMenu Studio API
+  description: >-
+    Recipe authoring: create and manage recipes, servings, ingredient resolution, nutrition computation
+    and analysis, labels, and version history.
+  humanURL: https://docs.bettermenu.live/docs/api
+  baseURL: https://api.bettermenu.live
+  tags:
+  - Studio
+  properties:
+  - type: OpenAPI
+    url: openapi/bettermenu-studio-api-openapi.yml
 x-submission-notes: api.bettermenu.live root 404 JSON (that is the API host); llms.txt 200
+
 x-submission-probe: api root 404 JSON, docs 200, llms.txt 200
+
 x-submitted-by: team@bettermenu.live (submission, 2026-10-20)
+
+x-coverage:
+  state: unreadable
+  reason: no-machine-readable-spec
+  detail: The provider's documentation at https://docs.bettermenu.live/docs/api is HTML with no machine‑readable OpenAPI/AsyncAPI/GraphQL spec.
+  evidence:
+  - url: https://docs.bettermenu.live/docs/api
+    status: 200
+  checked: '2026-10-21'
+x-enrichment:
+  date: '2026-10-21'
+  status: enriched
+  artifacts_added: 18
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

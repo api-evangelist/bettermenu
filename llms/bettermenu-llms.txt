@@ -1,0 +1,528 @@
+# BetterMenu Documentation
+
+BetterMenu is a nutrition data platform. The Studio API lets you create and manage recipes, resolve ingredients to nutrition data, compute FDA-compliant nutrition facts, and generate nutrition labels. Available to food brands, restaurants, and developers building nutrition-aware applications.
+
+## Guide
+
+- [BetterMenu Guide](/docs/guide): Hub page for the BetterMenu guide — links to how-to guides for food manufacturers and R&D teams, core concept references, and API and agent integration documentation.
+- [Platform](/docs/guide/platform): Index of BetterMenu platform concepts covering account types, organization roles, and permissions for building compliant food applications.
+
+## Core Concepts
+
+- [Core Concepts](/docs/guide/concepts): Index of BetterMenu core concept definitions — covering recipes, ingredients, nutrients, nutrition facts, serving sizes, measurement units, diets, claims, and recipe versioning.
+- [Food](/docs/guide/concepts/food): Reference page covering the BetterMenu Food data model, including the FD&C Act legal definition, FDA vs. USDA FSIS jurisdiction rules, raw ingredient sourcing from USDA FoodData Central, composed-dish nutrient aggregation, allergen propagation, and use cases for food service, clinical nutrition, and R&D.
+- [Ingredient](/docs/guide/concepts/ingredient): Reference page covering how BetterMenu models recipe ingredients — quantity, unit, food source, sub-ingredients, and FDA label compliance under 21 CFR 101.4 — with API integration details.
+- [Recipe](/docs/guide/concepts/recipe): Reference page on how BetterMenu models a recipe — ingredients, instructions, and yield — as the foundational unit for nutrition calculation, allergen detection, dietary classification, and food label generation.
+- [Nutrient](/docs/guide/concepts/nutrient): Reference page covering FDA nutrient classification (macronutrients, micronutrients), mandatory vs. voluntary Nutrition Facts label declarations under 21 CFR 101.9, Daily Value calculation, and how BetterMenu models and exposes nutrient data via API.
+- [Nutrition Fact](/docs/guide/concepts/nutrition-fact): Reference for how BetterMenu represents Nutrition Facts data including nutrient amounts, % Daily Value, serving size, allergen information, and FDA label fields for packaged food and restaurant menus.
+- [Allergen](/docs/guide/concepts/allergen): Reference on FDA Big 9 and EU 14 allergen declaration requirements, FALCPA and FASTER Act rules, precautionary labeling, and cross-contact controls for packaged food and food service.
+- [Diet](/docs/guide/concepts/diet): Reference page covering the eight dietary patterns supported by BetterMenu — vegetarian, vegan, paleo, keto, gluten-free, dairy-free, low-carb, and Mediterranean — including FDA regulatory thresholds (21 CFR 101.91), USDA Dietary Guidelines alignment, and how the platform classifies and exposes dietary flags via API.
+- [Claim](/docs/guide/concepts/claim): Reference page covering all five categories of food label claims — nutrient content, health (authorized and qualified), structure/function, food source, and lifestyle — with FDA regulatory thresholds, CFR citations, and equivalent standards for Canada, Australia/New Zealand, and the UK.
+- [Measurement Unit](/docs/guide/concepts/measurement-unit): Reference guide covering metric, imperial, and US customary measurement units for recipes, including weight-vs-volume distinctions, density-dependent conversions, household measure definitions, and FDA 21 CFR 101.9(b) dual-format labeling requirements.
+
+### Serving Size
+
+- [Serving Size](/docs/guide/concepts/serving-size): Overview of serving size for nutrition labeling — FDA RACC reference amounts, household measures, and metric equivalents — linking to jurisdiction-specific rules.
+- [FDA Serving Size Requirements](/docs/guide/concepts/serving-size/united-states-of-america): Complete FDA serving size reference covering RACC tables for all 129 food categories under 21 CFR 101.12, discrete-unit and bulk-product conversion rules under 21 CFR 101.9(b), single-serving thresholds, dual-column requirements, and servings-per-container rounding.
+
+### Added Sugars
+
+- [Added Sugars](/docs/guide/concepts/added-sugars): Orientation page for Added Sugars — why it is determined from formulation rather than laboratory analysis, which regulatory markets require the declaration, and how it differs from Total Sugars and WHO free sugars. The rules covered in this guide are those of the United States.
+- [United States: Concentrates, purées and pastes](/docs/guide/concepts/added-sugars/fda/concentrates-purees-and-pastes): Explains the FDA distinction between fruit and vegetable juice concentrate, which can contribute Added Sugars under the excess rule, and concentrated purees, pastes and powders, which do not — including the four codified exclusions and the Brix comparison method.
+- [United States: How to determine Added Sugars](/docs/guide/concepts/added-sugars/fda/determining-added-sugars): Step-by-step procedure for determining FDA Added Sugars from a formulation — an ordered per-ingredient decision tree covering sweeteners, hydrolysis products, lactose, whole foods, juice concentrates and multi-ingredient ingredients, followed by recipe-level rounding, percent Daily Value and omission steps, with a fully worked muffin example.
+- [United States: Fermentation and browning](/docs/guide/concepts/added-sugars/fda/fermentation-and-browning): Explains how to declare Added Sugars for foods where fermentation or non-enzymatic browning reduces the sugar added during processing — FDA's three routes under 21 CFR 101.9(g)(10)(v), the records each requires, the ceiling rule, and worked cases for bread, kombucha, caramel and vinegar.
+- [United States: Added Sugars under FDA rules](/docs/guide/concepts/added-sugars/fda): Complete FDA Added Sugars reference covering the 21 CFR 101.9(c)(6)(iii) definition, the four codified exclusions, the Includes Xg Added Sugars label format, rounding bands, the 50g Daily Reference Value, the under-1g omission condition, and how FDA verifies the declaration through records rather than analysis.
+- [United States: Recordkeeping for Added Sugars](/docs/guide/concepts/added-sugars/fda/recordkeeping): Explains the FDA recordkeeping obligation for Added Sugars under 21 CFR 101.9(g)(10) and (11) — when records are required, what they must contain, acceptable formats including Part 11 electronic records, the two-year retention period, and why failure to keep or produce them constitutes misbranding.
+- [United States: Single-ingredient sugars and syrups](/docs/guide/concepts/added-sugars/fda/single-ingredient-sugars): Explains how single-ingredient sugars, honey, agave and syrups declare Added Sugars under Farm Bill section 12516 — the omission of the Includes Xg phrase, the retained percent Daily Value, the dagger footnote, the separate cranberry treatment, and why the answer differs when the same product is used as a recipe ingredient.
+
+### Recommended Daily Intakes
+
+- [United States: FDA Daily Values](/docs/guide/concepts/recommended-daily-intakes/fda-daily-values): Complete reference for United States FDA Daily Values as defined in 21 CFR § 101.9, covering the 27 Reference Daily Intakes for vitamins and minerals, the 10 Daily Reference Values for macronutrients and food components, the 2,000-calorie reference diet, the nutrients that have no Daily Value at all, and the four FDA population groups.
+- [Recommended Daily Intakes](/docs/guide/concepts/recommended-daily-intakes): Overview of recommended daily intake reference values (FDA RDI for micronutrients and DRV for macronutrients) used to calculate %Daily Value on nutrition labels, linking to jurisdiction-specific tables.
+
+## Platform
+
+- [Account](/docs/guide/platform/account): Comprehensive reference on BetterMenu account types (personal, organization, enterprise), role definitions (owner, member), permission scoping, API access entitlements, and how accounts govern all platform activity.
+
+## API Reference
+
+- [API Documentation](/docs/api): Reference for the BetterMenu Studio API: create and manage recipes, resolve ingredients, compute FDA-compliant nutrition facts, and generate nutrition labels.
+- [Start Here](/docs/api/start-here): Quick start for the BetterMenu Studio API: authenticate with a Bearer key, create a recipe, resolve ingredients, compute nutrition, and generate an FDA nutrition label.
+
+### Studio (Recipes)
+
+- [Add Recipe Serving](/docs/api/studio/addRecipeServing): Add a serving to a recipe — set serving size.
+
+Creates a new serving entry. Does not replace existing servings —
+use updateRecipeServing to modify an existing serving by ID.
+
+Accepts serving size input (user_provided or racc_guided), stores
+the raw input, and resolves the serving_size when recipe nutrition
+is already present.
+
+Per-serving nutrition facts for the new serving are computed and
+folded into the same Version — always, with no way to opt out. No
+follow-up call is needed.
+
+For racc_guided mode, use searchUsRaccCategories to find the right
+RACC food category first.
+- [Archive Custom Ingredient](/docs/api/studio/archiveCustomIngredient): Archive a custom ingredient — withdraw it from active use. Soft: never a hard delete, the entity stays readable and pinned references in existing recipes are undisturbed. An archived ingredient is rejected from NEW recipe composition; use `unarchiveCustomIngredient` to reverse. Idempotent: re-archiving an already-archived ingredient returns the existing `version_id`.
+- [Archive Recipe](/docs/api/studio/archiveRecipe): Archive a recipe — take it offline.
+
+Sets the lifecycle marker to ARCHIVED and writes a new Version.
+Use ``unarchiveRecipe`` to reverse. Idempotent: re-archiving an
+already-archived recipe returns the existing ``version_id``.
+- [Studio Health](/docs/api/studio/checkStudioHealth): Health check endpoint.
+
+Returns:
+    Status object
+- [Compute Nutrition Facts](/docs/api/studio/computeNutritionFacts): Compute compliant-rounded nutrition facts for a serving.
+
+Applies compliant rounding rules to produce per-serving and optionally
+per-container nutrition facts.
+
+The top-level ``version_id`` identifies the new version created by
+this operation. Pass it back as ``If-Match`` on the next mutation.
+
+409 scenarios and recovery — check steps_required in the response:
+- MISSING_DEPENDENCY: no nutrition -> call setRecipeIngredients first
+- STALE_DEPENDENCY: ingredients changed since nutrition was computed -> re-call setRecipeIngredients
+- MISSING_DEPENDENCY: no serving -> call addRecipeServing
+After completing steps_required, retry this call.
+
+Available only on API versions declaring the ``recipe_versioning``
+capability. Requests without this capability receive a 404.
+
+Related endpoints:
+- getRecipePerServingNutritionFacts — retrieve the stored result
+- [Compute Recipe Nutrition](/docs/api/studio/computeRecipeNutrition): Compute and save total recipe nutrition (batch-level, all ingredients summed).
+
+Use this endpoint to manually trigger a nutrition recompute — typically after an
+external update to ingredient nutrient data. The recipe must be in ACTIVE state
+with at least one confirmed ingredient. The response ``version_id`` should be
+passed back as ``If-Match`` on the next mutation.
+- [Confirm Custom Ingredient](/docs/api/studio/confirmCustomIngredient): Promote a draft custom ingredient to active; only active ingredients can be composed into recipes. A draft ingredient is always rejected from recipe composition. Confirming an already-active or archived ingredient is rejected — this is a one-time transition, not idempotent.
+- [Confirm and save ingredients](/docs/api/studio/confirmIngredients): Step 2 of the resolve → confirm workflow. Takes a resolution_id from a prior startIngredientResolution call. Validates all rows are resolved, then saves as recipe ingredients. Returns 404 if resolution not found, 409 if already confirmed, 422 if rows are unresolved or ingredient IDs are stale.
+- [Create Custom Ingredient](/docs/api/studio/createCustomIngredient): Create a new custom ingredient as an empty draft. Only `name` is required. The response carries `version_id` — the sealed Version ULID — which callers can pass back on a future mutation for optimistic concurrency.
+- [Create Recipe](/docs/api/studio/createRecipe): Create a new recipe in ACTIVE state. Only name is required. Country defaults to US. Demographic defaults to adults_and_children_over_4.
+
+Recipes beyond your plan's included monthly allowance are billed at your plan's metered rate. Manage your plan and usage in BetterMenu Studio.
+- [Delete Custom Ingredient](/docs/api/studio/deleteCustomIngredient): Permanently delete a custom ingredient — irreversible via the API. `restoreCustomIngredient` is refused on a `deleted` ingredient (409 `custom_ingredient_not_restorable`), so no prior version can undo this. Scoped to `draft`, never-confirmed ingredients with zero recipe usage only: a typo'd or misnamed draft that was never confirmed and never composed into a recipe. Rejected once the ingredient has been confirmed (`active`), `archived`, or is already `deleted` — use `archiveCustomIngredient` to withdraw an ingredient that's ever been active. Rejected if any recipe pins this ingredient, even though a `draft` cannot normally acquire usage — check `getCustomIngredientUsage` first if unsure. Unlike `deleteRecipe`, the ingredient remains readable afterward with `status=deleted` — the record and every version before the delete are retained; what ends is any further use of the ingredient.
+- [Delete Recipe](/docs/api/studio/deleteRecipe): Delete a recipe (permanent — irreversible via the API).
+
+Once deleted, the recipe is fully hidden from all endpoints: it no longer
+appears in list or detail reads, version history is inaccessible, and
+``restoreRecipe`` also returns 404. There is no un-delete — ``restoreRecipe``
+is a version rollback for live recipes, not a recovery mechanism for
+deleted ones.
+
+Re-deleting an already-deleted recipe returns 404
+(``recipe_not_found``), which clients should treat as a successful
+deletion since the recipe is already gone.
+- [Delete Recipe Label Configuration](/docs/api/studio/deleteRecipeLabelConfiguration): Delete the recipe's label configuration.
+
+Returns 204 No Content on success; 404 when no active configuration
+exists.
+
+Sends ``If-Match: W/"<version_id>"`` to guard against concurrent
+writes — returns 412 on conflict.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+- [Delete Recipe Serving](/docs/api/studio/deleteRecipeServing): Delete a serving by ID.
+
+The serving is excluded from listRecipeServings but is retained
+for audit compliance. Returns 204 No Content on success.
+
+On versions declaring the `recipe_versioning` capability, the
+response carries an `ETag` header set to the new Version ULID so
+clients can pass it back as `If-Match` on the next mutation —
+204 has no body to carry the field.
+- [Export Label Artifact](/docs/api/studio/exportRecipeLabelArtifact): Generate (or return cached) label artifact(s) for one serving.
+
+On the first request for a given (recipe version, serving, format,
+resolution) combination the label HTML is assembled, rendered by the
+label-renderer Lambda, and the result is permanently cached in S3.
+Subsequent requests return the cached artifact without re-rendering.
+
+Concurrent first-download requests are safe — only one PUT lands;
+all others receive a pre-signed URL for the same artifact.
+
+Organizations in their trial period always receive a DRAFT-watermarked
+artifact, regardless of the ``draft_watermark`` parameter — as do
+organizations whose billing status cannot currently be confirmed.
+Otherwise the watermark is controlled via that parameter.
+
+Organizations on a non-subscription plan (``past_due``/``expired``/
+``cancelled``) may still re-fetch an already-cached artifact, but a
+request that would require a fresh render (bm-be#2296) is denied with a
+402.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+- [Extract Ingredient Lines](/docs/api/studio/extractIngredientLines): Splits a raw pasted ingredient blob into individual ingredient lines. Stateless — no Version is committed and the recipe is not modified, and extraction itself is not billed. Each returned line is ready to send as an add_ingredient item text to startIngredientResolution. Use this when a user pastes a block of ingredients that may not be separated by line breaks.
+- [Get Custom Ingredient](/docs/api/studio/getCustomIngredient): Fetch a custom ingredient by id.
+- [Get Custom Ingredient Audit Trail](/docs/api/studio/getCustomIngredientAuditTrail): Return the compliance timeline for a custom ingredient.
+
+Lists typed audit events newest-first — actor, channel, timestamp,
+and the fields set/changed.
+- [Get Custom Ingredient Usage](/docs/api/studio/getCustomIngredientUsage): List the organization's recipes that pin this custom ingredient. Backed by an eventually-consistent, near-real-time reverse index.
+
+`version_id` is applied as a DynamoDB filter after the page is read, so a filtered page can return fewer than `limit` items — possibly zero — even when more matches exist further in. An empty page with `meta.has_more: true` is not an empty result set: keep paging with `meta.cursor` until `meta.has_more` is false. Unfiltered pages are unaffected.
+- [Get Custom Ingredient Version](/docs/api/studio/getCustomIngredientVersion): Fetch the custom ingredient exactly as it existed at `version_id`.
+
+Returns the same full-entity envelope as `getCustomIngredient`,
+reconstructed from the immutable content-addressed history instead
+of the live HEAD — the entity's "time travel" counterpart to
+`restoreCustomIngredient`. `data` reflects the historical snapshot;
+`version_id` echoes the requested version.
+
+Returns 404 when the custom ingredient does not exist, or when
+`version_id` does not exist in its history.
+- [Get Custom Ingredient Version Changes](/docs/api/studio/getCustomIngredientVersionChanges): Return a structural diff of `version_id` relative to `compared_to` (defaults to its parent).
+
+`before` holds values at the comparison point; `after` holds values
+at the subject version. Only changed top-level fields appear in
+`data.field_changes`; an empty map means the two states are
+equivalent. Each changed field also carries a `data.field_relevance`
+entry classifying its downstream label impact (ADR 0008 D7):
+`label_affecting`, `availability_affecting`, or
+`non_label_affecting`. Diffing a version against itself returns 400.
+- [Get Ingredient](/docs/api/studio/getIngredient): Resolve one ingredient by id — a custom ingredient (`cing_…` — the caller organization's own) or a standard reference ingredient, whichever the id belongs to.
+- [Get Ingredient Usage](/docs/api/studio/getIngredientUsage): List the organization's recipes that pin `ingredient_id` — standard or custom. Backed by an eventually-consistent, near-real-time reverse index; not a hard read-your-writes guarantee immediately after a recipe save.
+
+`version_id` is applied as a DynamoDB filter after the page is read, so a filtered page can return fewer than `limit` items — possibly zero — even when more matches exist further in. An empty page with `meta.has_more: true` is not an empty result set: keep paging with `meta.cursor` until `meta.has_more` is false. Unfiltered pages are unaffected.
+- [Get Latest Ingredient Resolution](/docs/api/studio/getLatestIngredientResolution): Returns the most recent ingredient resolution for this recipe.
+
+Only reflects the server-side resolve → confirm workflow (startIngredientResolution → confirmIngredients). Returns 404 when no resolution session exists — this is correct and expected when ingredients were set via setRecipeIngredients, which bypasses the resolution pipeline entirely. To read current ingredients regardless of how they were set, use getRecipeIngredients.
+- [Get Recipe](/docs/api/studio/getRecipe): Get a recipe by id, optionally pinned to a historical version.
+
+`?version_id=` (omit ⇒ latest) selects the snapshot. The response
+body's top-level `version_id` mirrors the resolved snapshot —
+HEAD when omitted, the supplied version otherwise — and the
+`ETag: W/"{version_id}"` response header is derived from that
+field. Clients can pass the ETag back as `If-Match` on the next
+mutation for optimistic concurrency.
+
+The response body's `data.status` (`active` / `archived` /
+`deleted`) is the recipe lifecycle state.
+
+Available only on API versions declaring the `recipe_versioning`
+capability. Requests without this capability receive a 404.
+- [Get Recipe Audit Trail](/docs/api/studio/getRecipeAuditTrail): Return the compliance timeline for a recipe.
+
+Lists typed audit events newest-first. Each event carries the
+actor, channel, timestamp, changed fields, before/after payload,
+rationale, and a tamper-evidence ``record_hash``.
+
+Use this endpoint to answer: "who changed what and why?", "what
+was the ingredient list before the last edit?", "show me all
+nutrition recomputations since version V".
+
+For the tamper-evident chain of state snapshots use
+``listRecipeVersions`` instead.
+
+Pagination: pass `meta.cursor` from the previous response back as
+`cursor` on the next request, and keep paging until `meta.has_more`
+is false.
+
+`actor_id`, `actor_type`, `since_version_id` and `up_to_version_id`
+are applied as DynamoDB filters after the page is read, so a
+filtered page can return fewer than `limit` events — possibly zero —
+even when more matches exist further in. An empty page with
+`meta.has_more: true` is not an empty result set: keep paging with
+`meta.cursor` rather than reading a short or empty page as the end
+of the timeline. `event_type` and the `from`/`to` range narrow the
+index range itself and are unaffected.
+
+Passing `event_type` selects a different index that has no cursor:
+that path returns a single page of at most `limit` events and always
+reports `meta.has_more: false`, which therefore does not mean the
+timeline is exhausted. Narrow with `from`/`to`, or raise `limit`, to
+see more of a typed slice.
+- [Get Recipe Ingredients](/docs/api/studio/getRecipeIngredients): Get all ingredients in a recipe in order with their resolved names,
+quantities, and positions.
+
+The top-level ``version_id`` mirrors the recipe's HEAD ULID on the
+``main`` branch — clients can pass it back as ``If-Match`` on the
+next mutation for optimistic concurrency. Accepts ``?version_id=`` to
+read ingredients at a specific historical version snapshot.
+
+Available only on API versions declaring the ``recipe_versioning``
+capability. Requests without this capability receive a 404.
+
+Related endpoints:
+- setRecipeIngredients — save pre-resolved ingredients directly
+- [Get Recipe Label Configuration](/docs/api/studio/getRecipeLabelConfiguration): Get fully resolved label configuration, optionally pinned to a historical version.
+
+Accepts ``?version_id=`` to read configuration at a specific version snapshot.
+
+Returns 404 when ``version_id`` is supplied but no matching version exists.
+Returns 500 when the stored version uses a data format that this API
+version cannot read.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+Requests without this capability receive a 404.
+- [Get Recipe Nutrition](/docs/api/studio/getRecipeNutrition): Return total recipe nutrition (batch-level, all ingredients summed) — not per-serving.
+
+``reference_weight_grams`` is the total weight of all ingredients combined; no
+per-serving amounts or %DV are included. Pass ``?version_id=`` to read nutrition
+at a historical snapshot. Returns 404 if nutrition has not been computed yet; use
+computeRecipeNutrition to trigger a manual recompute.
+- [Get Nutrition Label](/docs/api/studio/getRecipeNutritionLabel): Get a render-ready nutrition label for one serving, optionally pinned to a version.
+
+Assembles header, regulatory-ordered nutrient columns (per-serving and
+optional per-container), footnotes, staleness, and completeness into a
+single response ready for label rendering.
+
+Accepts ``?version_id=`` to read the label at a specific version snapshot.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+Requests without this capability receive a 404.
+- [Get Recipe Nutritional Analysis](/docs/api/studio/getRecipeNutritionalAnalysis): Return per-nutrient ingredient breakdown for the recipe.
+
+Shows which ingredients contribute the most to each nutrient (protein, fat,
+calories, vitamins, minerals, etc.) with percentage contributions. Use
+``nutrient_set`` to filter to a predefined group and ``top_n`` to limit
+contributors per nutrient. Pass ``?version_id=`` to read analysis at a
+historical snapshot. Returns 404 if nutrition has not been computed yet.
+- [Get Per-Container Nutrition Facts](/docs/api/studio/getRecipePerContainerNutritionFacts): Get per-container nutrition facts, optionally pinned to a historical version.
+
+Returns compliant-rounded nutrient values for the full container.
+Accepts ``?version_id=`` to read facts at a specific version snapshot.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+Requests without this capability receive a 404.
+- [Get Per-Serving Nutrition Facts](/docs/api/studio/getRecipePerServingNutritionFacts): Get per-serving nutrition facts, optionally pinned to a historical version.
+
+Returns compliant-rounded nutrient values and percent daily values for one
+serving. Accepts ``?version_id=`` to read facts at a specific version snapshot.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+Requests without this capability receive a 404.
+- [Get Recipe Serving](/docs/api/studio/getRecipeServing): Get a single serving by id, optionally pinned to a historical version.
+
+`?version_id=` (omit ⇒ latest) selects the snapshot. The response
+body's top-level `version_id` mirrors the resolved snapshot —
+HEAD when omitted, the supplied version otherwise — and the
+`ETag: W/"{version_id}"` response header is derived from that
+field. Clients can pass the ETag back as `If-Match` on the next
+mutation for optimistic concurrency.
+
+Returns the serving size (household measure, metric, servings per
+container), dual-column label status, and flags indicating whether
+per-serving and per-container nutrition facts have been computed.
+
+Available only on API versions declaring the `recipe_versioning`
+capability. Requests without this capability receive a 404.
+- [Get Serving Nutrition Facts Analysis](/docs/api/studio/getRecipeServingNutritionFactsAnalysis): Serving nutrition facts analysis with ingredient contributions and rounding audit trail.
+
+Returns ingredient contributions (scaled to this serving's weight) alongside
+full ValueRoundingOutcome and DVRoundingOutcome for each nutrient.
+Supports filtering by ``nutrient_set`` and/or comma-separated BMIDs.
+Accepts ``?version_id=`` to read analysis at a specific version snapshot.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+Requests without this capability receive a 404.
+- [Get Recipe Version Changes](/docs/api/studio/getRecipeVersionChanges): Return a structural diff of ``version_id`` relative to ``compared_to`` (defaults to its parent).
+
+``before`` holds values at the comparison point; ``after`` holds values at the subject version.
+Only changed top-level fields appear in ``data.field_changes``; an empty map means the two
+states are equivalent. For rollback preview, pass ``compared_to={current_head}`` to see what
+reverting to ``version_id`` would change. Diffing a version against itself returns 400.
+- [List Custom Ingredient Versions](/docs/api/studio/listCustomIngredientVersions): List a custom ingredient's version history, newest first (cursor-paginated, max 50 per page).
+
+Each entry includes `version_id`, `parent_version_id`, `created_at`,
+`created_by`, and an auto-generated `summary` of what changed. For
+actor/event audit narrative, use
+`GET /custom-ingredients/{custom_ingredient_id}/audit-trail` instead.
+- [List Custom Ingredients](/docs/api/studio/listCustomIngredients): List the organization's custom ingredients — one lightweight summary per row. Filter by `status` to narrow to a single lifecycle state.
+
+`status` is applied as a DynamoDB filter after the page is read, so a filtered page can return fewer than `limit` items — possibly zero — even when more matches exist further in. An empty page with `meta.has_more: true` is not an empty result set: keep paging with `meta.cursor` until `meta.has_more` is false.
+
+Deleted custom ingredients are included in every page here, filtered or not, because a deleted custom ingredient stays readable. This is the opposite default to `listRecipes`, which excludes deleted recipes from every page regardless of filter. Pass `status=deleted` to list only them.
+- [List Ingredient Resolutions](/docs/api/studio/listIngredientResolutions): Returns all server-side ingredient resolution sessions for this recipe, newest first. Each resolution includes the full row data with search candidates and conversion steps.
+
+Only reflects the server-side resolve → confirm workflow (startIngredientResolution → confirmIngredients). Returns an empty list when no resolution sessions exist — this is correct and expected when ingredients were set via setRecipeIngredients, which bypasses the resolution pipeline entirely.
+- [List Recipe Servings](/docs/api/studio/listRecipeServings): List all active servings for a recipe.
+
+Returns every serving defined on the recipe with its computed size,
+dual-column label status, and nutrition-facts availability flags.
+The top-level ``version_id`` mirrors the recipe's HEAD ULID on the
+``main`` branch — clients can pass it back as ``If-Match`` on the
+next mutation for optimistic concurrency, or use it to pin a
+follow-up ``getRecipeServing`` call to the same snapshot. Accepts
+``?version_id=`` to read the servings list at a historical version.
+
+Available only on API versions declaring the ``recipe_versioning``
+capability. Requests without this capability receive a 404.
+- [List Recipe Versions](/docs/api/studio/listRecipeVersions): List a recipe's version history, newest first (cursor-paginated, max 50 per page).
+
+Each entry includes ``version_id``, ``parent_version_id``, ``created_at``,
+``created_by``, and an auto-generated ``summary`` of what changed. Pass
+``?at=<iso8601>`` with an explicit UTC offset to resolve the single version active
+at that timestamp; ``after`` and ``limit`` are ignored in that mode, and 404 is
+returned when no version exists at or before the given time. For actor/event audit
+narrative, use ``GET /recipes/{recipe_id}/audit-trail`` instead.
+- [List Recipes](/docs/api/studio/listRecipes): List recipes the caller can access in their organization.
+
+Each list item carries `latest_version_id` — the HEAD ULID for
+the recipe on the `main` branch — so callers can pin follow-up
+reads or diff against a known commit without a per-row round-trip.
+Each item also carries `status` — the recipe lifecycle state, here
+always `active` or `archived`, never `deleted`: a deleted recipe
+never appears in a list response (see below).
+
+Pagination is cursor-based: omit `cursor` on the first page, then
+pass `meta.cursor` from each response back as `cursor` on the next
+call. The cursor is self-contained — it carries forward the
+`sort_by`/`order`/`status` it was issued under, so subsequent pages
+don't need to resend them. Passing a param that conflicts with what
+the cursor was issued under starts a fresh query at page 1 under the
+new param rather than erroring. A cursor that is not a cursor at all
+also starts again at page 1. A cursor that still reads as one but
+whose position is not in this list (for example, one edited or
+retyped) is rejected with a 400 `invalid_cursor`: pass cursors back
+exactly as returned. `meta` echoes the effective
+`sort_by`/`order`/`status` actually applied. Server caps `limit`
+at 100.
+
+Sort defaults to `updated_at desc` (most recently updated first).
+`status` filters to `active` or `archived`, and selects a pre-built
+view partition rather than filtering rows after the read — so a
+filtered page here fills to `limit` whenever more matches exist.
+
+Deleted recipes are excluded from every page regardless of filter,
+and `deleted` is not an accepted `status` value: a deleted recipe is
+no longer readable. This is the opposite default to
+`listCustomIngredients`, which includes deleted custom ingredients in
+every page because those stay readable.
+
+Available only on API versions declaring the `recipe_versioning`
+capability. Requests without this capability receive a 404.
+- [List Used Ingredients](/docs/api/studio/listUsedIngredients): List the ingredients the caller's organization has actually used, ranked by usage count, recency, or name — spanning standard and custom ingredients in one ordered result set. Distinct from `searchIngredients`: that endpoint answers 'what can I pick from' (the full catalog, relevance-ranked); this one answers 'what does my organization actually use' (usage-ranked, org-scoped only). Pagination is cursor-based, matching `listRecipes`: omit `cursor` on the first page, then pass `meta.next_cursor`/`meta.prev_cursor` back verbatim. `source`/`status` are applied as DynamoDB filters after the page is read, so a filtered page can return fewer than `limit` items — possibly zero — even when more matches exist further in. Keep paging until `meta.has_more` is false rather than reading a short or empty page as the end of the results.
+
+**Eventually consistent.** Unlike `listRecipes`, whose rows are written as part of the recipe commit itself, this listing is a background projection: after a recipe is created, edited or deleted, this endpoint can take from seconds to minutes to reflect the change in `used_in_recipes`, `updated_at`, and which ingredients appear at all. A read immediately after a write may legitimately return the previous state — retry rather than treating it as missing data. `getRecipe` and `getIngredientUsage` are read-your-writes consistent and are the right call when you need the effect of a specific commit confirmed.
+- [Patch Custom Ingredient Metadata](/docs/api/studio/patchCustomIngredientMetadata): Partially update a custom ingredient's metadata. Send only the fields you want to change; omitted fields stay unchanged. Wires `name` — rename the ingredient — and `approved_markets`, a full-list replace of the markets this ingredient participates in, which controls whether it appears in `searchIngredients` / the browser typeahead for a given market. Allowed while the ingredient is `draft` or `active`; rejected once `archived`.
+- [Patch Recipe Metadata](/docs/api/studio/patchRecipeMetadata): Partially update recipe metadata — rename, change country, or change demographic.
+
+Send only the fields you want to change; omitted fields stay unchanged.
+
+**Side effect:** Changing `country` or `demographic` triggers automatic
+nutrition recomputation. The updated nutrition figures are available
+immediately after the update completes.
+
+The new name must be unique within the organization. All changes
+are logged in the audit trail.
+
+The response carries `version_id` — the sealed Version ULID — which
+callers pass back as `If-Match` on the next mutation for optimistic
+concurrency. A mismatch returns 412 with the current `version_id`
+so the client can refetch and retry.
+- [Restore Custom Ingredient to Version](/docs/api/studio/restoreCustomIngredient): Roll back a custom ingredient to the content state it had at a prior version.
+
+This is a **full point-in-time restore** — the entity's entire state
+(nutrients, serving/gram basis, name, lifecycle status, attributes)
+snaps back to exactly what was recorded in `target_version_id`. This
+matches the semantics of `git checkout <tag>`: the whole entity
+reverts, not just the fields that changed between the target and the
+current HEAD.
+
+Lifecycle status is part of that state, so a restore re-projects the
+target version's status onto HEAD: restoring past an `archive` puts the
+ingredient back in `active` or `draft`, exactly as
+`unarchiveCustomIngredient` would.
+
+It does **not** undo a delete. A `deleted` ingredient is refused with
+409 `custom_ingredient_not_restorable` — `deleteCustomIngredient` is
+permanent (ADR 0008 D11), and this is what makes it so. `restoreRecipe`
+refuses a deleted recipe too, by a different route: a deleted recipe is
+hidden from all reads, so it 404s.
+
+Creates a new commit whose content matches `target_version_id`; the
+existing history is never rewritten. The new `version_id` is
+returned in the response body — pass it as `If-Match` on subsequent
+mutations. Returns 404 if the custom ingredient or the target version
+does not exist; 409 on a `deleted` ingredient or an `If-Match`
+mismatch.
+
+A recipe pinned to a specific custom-ingredient `version_id` is
+unaffected by this call — pins are immutable by `version_id`
+(ADR 0007 D2), so restoring the custom ingredient to a different
+version never changes what an already-pinned recipe reads or
+computes.
+- [Restore Recipe to Version](/docs/api/studio/restoreRecipe): Roll back a live recipe to the content state it had at a prior version.
+
+This is a **full point-in-time restore** — every sub-entity of the recipe
+(ingredients, servings, nutrition, label configuration, summary, metadata)
+snaps back to exactly the state recorded in ``target_version_id``. Any
+sub-entities added or modified after that version — including servings added
+later — are removed in the restored commit. This matches the semantics of
+``git checkout <tag>``: the entire tree reverts, not just the fields that
+changed between the target and the current HEAD.
+
+This is a **version rollback**, not an un-delete. The recipe must be
+ACTIVE or ARCHIVED — a deleted recipe returns 404 (``recipe_not_found``),
+the same as any other read. To check whether a recipe is deleted, call
+``getRecipe`` first; deleted recipes are fully hidden from all endpoints.
+
+Creates a new commit whose content matches ``target_version_id``; the existing
+history is never rewritten. The new ``version_id`` is returned in the response
+body and ``ETag`` header — pass it as ``If-Match`` on subsequent mutations.
+Returns 404 if the recipe does not exist (or is deleted), or if the target
+version does not exist; 412 on ``If-Match`` mismatch.
+- [Search Ingredients](/docs/api/studio/searchIngredients): Runs an ingredient search on the server and returns matching ingredients — the caller organization's custom ingredients AND the requested market's standard reference ingredients, in one list where every custom-ingredient match ranks above every standard match. Pass `q: "*"` to browse (match everything visible for the market) instead of running a text search. Pass `queries` instead of `q` to search multiple terms in one call — each is ranked independently and results are returned as `result_groups`, one per input query.
+- [Search Recipes](/docs/api/studio/searchRecipes): Runs a recipe search on the server and returns matching recipes. Pass `q: "*"` to browse (match all recipes the caller can access) instead of running a text search. Every search is restricted to recipes the caller collaborates on.
+- [Set Custom Ingredient Nutrition](/docs/api/studio/setCustomIngredientNutrition): Replace a custom ingredient's full nutrient list in one commit — the sent list becomes the complete `nutrients` array (destructive replace, like `setRecipeIngredients`). Each nutrient carries its universal physical value (`amount`/`unit`) plus a per-market regulatory identity (`market_nutrients`); `amount: null` means unknown, never zero. Allowed while the ingredient is `draft` or `active`; rejected once `archived`.
+- [Set Custom Ingredient Serving](/docs/api/studio/setCustomIngredientServing): Replace a custom ingredient's serving / gram basis in one commit — every field is taken verbatim from the request (destructive replace, like `setRecipeIngredients`); an omitted field clears to null. `reference_quantity_g` is the derived as-sold gram basis the nutrition-calc adapter uses to convert stored nutrient amounts to a per-100g basis. Allowed while the ingredient is `draft` or `active`; rejected once `archived`.
+- [Set Recipe Ingredients](/docs/api/studio/setRecipeIngredients): ④ of 5 | Requires: ③ createRecipe | Next: ⑤ addRecipeServing
+
+Save the full ingredient list for a recipe in one commit — add, edit, delete, and reorder are all expressed as the complete ordered list you send. Each item is a structured form or resolution row; there is no free-text parsing on this path.
+
+The list is discriminated by ``source``:
+  • ``form`` — a structured search → pick → quantity row. Omit ``id`` for a new row (the server mints one) or send an existing ``irow_...`` id to edit/reorder it.
+  • ``resolution`` — an existing row born from the resolve workflow. It must carry an existing ``irow_...`` id; immutable lineage is inherited server-side and cannot be supplied by the client.
+
+``ingredients_entry_method`` must equal the recipe's locked entry method. A recipe locked to ``form`` rejects any ``resolution`` row.
+
+``position`` is taken verbatim, so drag-reorder is a resend with the new positions. An empty ``items`` list deletes all ingredients.
+
+On success, recipe-level nutrition (L1) and any existing per-serving panels (L2) are recomputed atomically in the same commit.
+
+Next: ⑤ addRecipeServing — add a serving size to generate the final nutrition facts label.
+- [Start Ingredient Resolution](/docs/api/studio/startIngredientResolution): Starts a new ingredient resolution. Resolves ingredient items into matched food items and gram weights. Each item declares an action (add_ingredient, keep_ingredient, replace_ingredient, update_ingredient_text, update_ingredient_name, update_ingredient_quantity, update_ingredient_grams, or remove_ingredient). Returns resolved rows with search candidates and unit conversions. Check summary.ready_to_confirm — if true, call confirmIngredients. No Version is committed.
+
+Re-analysis of an existing resolution (previous_resolution_id set) is always free. First-call resolutions beyond your plan's included monthly allowance are billed at your plan's metered rate. Manage your plan and usage in BetterMenu Studio.
+- [Unarchive Custom Ingredient](/docs/api/studio/unarchiveCustomIngredient): Unarchive a custom ingredient — restore an archived ingredient to active state so it can be composed into new recipes again. Reverses `archiveCustomIngredient`. Idempotent: unarchiving a custom ingredient that is not currently archived returns the existing `version_id`.
+- [Unarchive Recipe](/docs/api/studio/unarchiveRecipe): Unarchive a recipe — restore an archived recipe to active state.
+
+Reverses ``archiveRecipe`` and commits a new Version. Idempotent:
+unarchiving a recipe that is not currently ARCHIVED returns the
+existing ``version_id`` without minting a new Version.
+- [Update Recipe Serving](/docs/api/studio/updateRecipeServing): Replace a serving's size input (full replacement by ID).
+
+Replaces the serving_size input for the specified serving and resolves
+the new serving_size inline. Atomically recomputes and folds
+per-serving and per-container nutrition facts into the same Version —
+always, with no way to opt out, so no follow-up call is needed. A
+no-op update (same serving size) recomputes nothing and keeps the
+existing panels.
+
+For racc_guided mode, use searchUsRaccCategories to find the right
+RACC food category first.
+- [Upsert Recipe Label Configuration](/docs/api/studio/upsertRecipeLabelConfiguration): Idempotent create-or-update for recipe label configuration.
+
+Creates if no active label configuration exists; replaces all existing
+entries otherwise. Sends ``If-Match: W/"<version_id>"`` to guard against
+concurrent writes — returns 412 on conflict.
+
+Available only on API versions declaring the ``recipe_versioning`` capability.
+
+### Entitlements
+
+- [Create Checkout Session](/docs/api/entitlements/createCheckoutSession): Create a Stripe Checkout session for the calling organization to subscribe to a paid plan. Returns a hosted URL to redirect the customer to. Reuses the organization's existing billing customer.
+- [Create Customer Portal Session](/docs/api/entitlements/createPortalSession): Create a Stripe Customer Portal session so the calling organization can manage its payment method, view invoices, or cancel its subscription. Returns a hosted URL to redirect the customer to.
+- [Get Entitlement Status](/docs/api/entitlements/getEntitlementStatus): Read the calling organization's subscription plan, trial state, pending cancellation, feature gates, and per-quota usage. quotas[key].limit reflects the effective limit (trial_limit when is_trialing is true). metered_usage_enabled reports whether the organization accepts charges beyond its included monthly allowance.
+- [List Purchasable Plans](/docs/api/entitlements/listEntitlementPlans): List the subscription plans the calling organization can purchase, including display name, feature gates, recurring price, and which plan is currently active.
+
+## Last updated
+
+October 16, 2026

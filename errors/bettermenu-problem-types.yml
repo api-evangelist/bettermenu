@@ -1,0 +1,96 @@
+generated: '2026-10-21'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/_original/bettermenu-api-openapi.json
+format: custom
+envelope:
+  media_type: application/json
+  schema: HTTPValidationError
+coverage:
+  operations: 82
+  statuses_declared: 12
+problems:
+- status: 400
+  title: Bad Request
+  description: Invalid pagination cursor (`invalid_cursor`). The `cursor` was not issued by this endpoint for this
+    request, for example because it was edit
+  operations: 13
+  media_types:
+  - application/json
+  schema: ProblemDetail
+- status: 401
+  title: Unauthorized
+  description: Missing or invalid authentication.
+  operations: 5
+  media_types: []
+  schema: null
+- status: 402
+  title: Payment Required
+  description: 'The organization''s recipe limit is a hard stop and has been reached; the plan must change first.
+    code: ''trial_quota_limit_reached'' on a tria'
+  operations: 2
+  media_types: []
+  schema: null
+- status: 403
+  title: Forbidden
+  description: 'The organization does not permit usage beyond its included monthly allowance. code: ''metered_usage_not_permitted''.'
+  operations: 8
+  media_types:
+  - application/json
+  schema: ProblemDetail
+- status: 404
+  title: Not Found
+  description: Custom ingredient not found.
+  operations: 29
+  media_types:
+  - application/json
+  schema: ProblemDetail
+- status: 409
+  title: Conflict
+  description: The `If-Match` token was present but HEAD has since moved (another writer committed). Body carries
+    `current_version_id` so the client can fe
+  operations: 28
+  media_types:
+  - application/json
+  schema: ProblemDetail
+- status: 412
+  title: Precondition Failed
+  description: The `If-Match` header was absent on a versioned recipe. Fetch the current `version_id` and retry
+    with `If-Match` set.
+  operations: 26
+  media_types: []
+  schema: null
+- status: 422
+  title: Unprocessable Content
+  description: Validation Error
+  operations: 78
+  media_types:
+  - application/json
+  schema: HTTPValidationError
+- status: 428
+  title: Precondition Required
+  description: The label prints nutrients as a stated zero that the maker has not confirmed (`label_review_required`).
+    `fills` lists each with the `fills_h
+  operations: 1
+  media_types: []
+  schema: null
+- status: 429
+  title: Too Many Requests
+  description: The member has sent the most feedback allowed this hour. Retry after `retry_after_seconds`.
+  operations: 1
+  media_types: []
+  schema: null
+- status: 500
+  title: Internal Server Error
+  description: The stored version uses a data format that this API version cannot read.
+  operations: 3
+  media_types:
+  - application/json
+  schema: ProblemDetail
+- status: 503
+  title: Service Unavailable
+  description: The search backend is temporarily unavailable.
+  operations: 3
+  media_types: []
+  schema: null

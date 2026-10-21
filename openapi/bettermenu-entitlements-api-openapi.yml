@@ -1,0 +1,524 @@
+openapi: 3.2.0
+info:
+  title: Studio Entitlements API
+  description: '## Recipe versioning
+
+
+    Recipe is the aggregate; versions are read-only history. Use the table
+
+    below to pick the right call.
+
+
+    | I want to… | Use… |
+
+    |-------------------------------------------------------------|------------------------------------------------------------|
+
+    | Edit a recipe safely without overwriting someone else''s | `GET /recipes/{id}` → `If-Match` → `PATCH`/`POST`/`DELETE` |
+
+    | See a recipe at a point in the past | `GET /recipes/{id}/versions/{version_id}` |
+
+    | Replay the chain of state changes (signed, tamper-evident) | `GET /recipes/{id}/versions` |
+
+    | See who changed what and when, with event detail | `GET /recipes/{id}/audit-trail` |
+
+    | Understand why a write returned `412` | someone else edited; refetch and retry |
+
+
+    The `version_id` returned on every recipe response is your edit token.
+
+    Send it as `If-Match` on the next write; on conflict the server returns
+
+    `412` with `current_version_id` so you can refetch and retry. There is
+
+    no `POST /recipes/{id}/versions` — the system commits versions
+
+    automatically when you mutate the recipe.
+
+
+    The versions list and the audit trail answer different questions: the
+
+    versions list is a tamper-evident chain of state snapshots you can
+
+    replay; the audit trail is a filterable, event-typed log of what users
+
+    and systems did to the recipe.'
+  version: 2026-05-04.preview
+  x-service-version: 0.47.0+ac83f7e
+tags:
+- name: Entitlements
+  description: Account entitlement and plan status.
+paths:
+  /entitlements/status:
+    get:
+      tags:
+      - Entitlements
+      summary: Get Entitlement Status
+      description: Read the calling organization's subscription plan, trial state, pending cancellation, feature gates, and per-quota usage. quotas[key].limit reflects the effective limit (the plan's trial limit when is_trialing is true). metered_usage_enabled reports whether the organization accepts charges beyond its included monthly allowance.
+      operationId: getEntitlementStatus
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementStatusResponse'
+      x-bettermenu-mcp-status: ga
+      x-required-permission: studio.billing.read
+  /entitlements/usage:
+    get:
+      tags:
+      - Entitlements
+      summary: Get Usage Ledger
+      description: 'Read the calling organization''s recorded AI usage for the current billing cycle: the credit total and which capabilities spent it, largest first, against the allowance the plan includes. credits_overage is what the cycle is past that allowance; charges_apply says whether an overage is actually charged, and is false while the AI quota is in its preview period or while the organization does not permit usage beyond its allowance.'
+      operationId: getUsageLedger
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+      x-bettermenu-mcp-status: preview
+      x-required-permission: studio.billing.read
+  /entitlements/plans:
+    get:
+      tags:
+      - Entitlements
+      summary: List Purchasable Plans
+      description: List the subscription plans the calling organization can purchase, including display name, feature gates, recurring price, and which plan is currently active.
+      operationId: listEntitlementPlans
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlansResponse'
+      x-bettermenu-mcp-status: restricted
+      x-required-permission: studio.billing.read
+  /entitlements/checkout:
+    post:
+      tags:
+      - Entitlements
+      summary: Create Checkout Session
+      description: Create a Stripe Checkout session for the calling organization to subscribe to a paid plan. Returns a hosted URL to redirect the customer to. Reuses the organization's existing billing customer.
+      operationId: createCheckoutSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-bettermenu-mcp-status: restricted
+      x-required-permission: studio.billing.manage
+  /entitlements/portal:
+    post:
+      tags:
+      - Entitlements
+      summary: Create Customer Portal Session
+      description: Create a Stripe Customer Portal session so the calling organization can manage its payment method, view invoices, or cancel its subscription. Returns a hosted URL to redirect the customer to.
+      operationId: createPortalSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortalRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortalResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-bettermenu-mcp-status: restricted
+      x-required-permission: studio.billing.manage
+components:
+  schemas:
+    PurchasablePlan:
+      properties:
+        plan_name:
+          type: string
+          title: Plan Name
+          description: Internal identifier of the plan.
+        display_name:
+          type: string
+          title: Display Name
+          description: Human-readable plan name for the UI.
+        feature_gates:
+          items:
+            type: string
+          type: array
+          title: Feature Gates
+          description: Feature gate identifiers this plan unlocks.
+        price:
+          $ref: '#/components/schemas/BillingPrice'
+          description: Recurring price for this plan.
+        is_current:
+          type: boolean
+          title: Is Current
+          description: True when this is the calling organization's active plan.
+      type: object
+      required:
+      - plan_name
+      - display_name
+      - feature_gates
+      - price
+      - is_current
+      title: PurchasablePlan
+      description: 'A plan an organization can buy, with display + price metadata.
+
+
+        Returned by ``GET /entitlements/plans``. Internal non-subscription tiers
+
+        (past_due/expired/cancelled) and the default trial are never purchasable and
+
+        are excluded from this list.'
+    AllowanceView:
+      properties:
+        kind:
+          type: string
+          title: Kind
+          description: One of "capped" (a ceiling, in credits), "uncapped" (the plan meters this without limiting it), or "not_entitled" (billing has lapsed, so there is no allowance at all).
+        credits:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Credits
+          description: The ceiling, present only when kind is "capped". Absent for the other two, because neither has one — and 0 would be a ceiling of zero, which makes every credit an overage.
+      type: object
+      required:
+      - kind
+      title: AllowanceView
+      description: 'What a plan allows for a cycle, tagged so the three cases stay distinct.
+
+
+        Mirrors ``entitlements.allowance.QuotaGrant`` deliberately: the wire shape
+
+        and the internal type have the same three cases, so they cannot drift into
+
+        the collapse this replaces.
+
+
+        ``kind`` is a plain string rather than an enum in the schema, so a fourth
+
+        case later does not break a strict client parsing today''s closed set. The
+
+        server''s own type is exhaustive; the wire stays open.'
+    EntitlementStatusResponse:
+      properties:
+        plan_name:
+          type: string
+          title: Plan Name
+        display_name:
+          type: string
+          title: Display Name
+        is_trialing:
+          type: boolean
+          title: Is Trialing
+        trial_ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Trial Ends At
+        trial_days_remaining:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Trial Days Remaining
+        pending_cancellation_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Pending Cancellation At
+        feature_gates:
+          items:
+            type: string
+          type: array
+          title: Feature Gates
+        quotas:
+          additionalProperties:
+            $ref: '#/components/schemas/QuotaStatusEntry'
+          type: object
+          title: Quotas
+        write_access:
+          type: string
+          title: Write Access
+        write_access_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Write Access Reason
+        metered_usage_enabled:
+          type: boolean
+          title: Metered Usage Enabled
+        is_free_plan:
+          type: boolean
+          title: Is Free Plan
+          description: 'True when the organization''s current plan is the no-card Free plan: no subscription, and quotas that stop at their limit rather than billing an overage. Clients use this instead of matching plan_name.'
+      type: object
+      required:
+      - plan_name
+      - display_name
+      - is_trialing
+      - trial_ends_at
+      - trial_days_remaining
+      - pending_cancellation_at
+      - feature_gates
+      - quotas
+      - write_access
+      - write_access_reason
+      - metered_usage_enabled
+      - is_free_plan
+      title: EntitlementStatusResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PortalResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: Hosted Stripe Customer Portal URL to redirect the customer to.
+      type: object
+      required:
+      - url
+      title: PortalResponse
+    CheckoutRequest:
+      properties:
+        plan_name:
+          type: string
+          title: Plan Name
+          description: Internal identifier of the plan to subscribe to (e.g. 'pro').
+        success_url:
+          type: string
+          title: Success Url
+          description: Absolute URL Stripe redirects to after a completed checkout.
+        cancel_url:
+          type: string
+          title: Cancel Url
+          description: Absolute URL Stripe redirects to if the customer cancels.
+      type: object
+      required:
+      - plan_name
+      - success_url
+      - cancel_url
+      title: CheckoutRequest
+    PortalRequest:
+      properties:
+        return_url:
+          type: string
+          title: Return Url
+          description: Absolute URL Stripe returns the customer to after the portal.
+      type: object
+      required:
+      - return_url
+      title: PortalRequest
+    PlansResponse:
+      properties:
+        plans:
+          items:
+            $ref: '#/components/schemas/PurchasablePlan'
+          type: array
+          title: Plans
+          description: Purchasable plans with display, price, and current-plan flag.
+      type: object
+      required:
+      - plans
+      title: PlansResponse
+    CheckoutResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: Hosted Stripe Checkout URL to redirect the customer to.
+      type: object
+      required:
+      - url
+      title: CheckoutResponse
+    CapabilityUsage:
+      properties:
+        capability:
+          type: string
+          title: Capability
+          description: Stable key, e.g. "paste_and_go".
+        credits:
+          type: integer
+          title: Credits
+        requests:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Requests
+          description: 'Requests that earned credits under this capability. Null when the count is not recorded for this cycle, which is every cycle already in flight when the counter was introduced. Null rather than zero on purpose: zero says a capability earned credits across no requests, which is not a state any request can produce, so a reader shown 0 would be shown a contradiction rather than a gap.'
+      type: object
+      required:
+      - capability
+      - credits
+      title: CapabilityUsage
+      description: One capability's share of the cycle.
+    QuotaStatusEntry:
+      properties:
+        limit:
+          type: integer
+          title: Limit
+        used:
+          type: integer
+          title: Used
+        remaining:
+          type: integer
+          title: Remaining
+        resets_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Resets At
+        overage_per_unit_cents:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Overage Per Unit Cents
+      type: object
+      required:
+      - limit
+      - used
+      - remaining
+      - resets_at
+      title: QuotaStatusEntry
+    BillingPrice:
+      properties:
+        price_id:
+          type: string
+          title: Price Id
+          description: Stripe Price ID used as the Checkout line item.
+        amount_cents:
+          type: integer
+          title: Amount Cents
+          description: Recurring amount in the smallest currency unit (e.g. cents).
+        currency:
+          type: string
+          title: Currency
+          description: ISO 4217 currency code.
+          default: usd
+        interval:
+          type: string
+          title: Interval
+          description: Billing interval for the recurring price (e.g. month, year).
+          default: month
+      type: object
+      required:
+      - price_id
+      - amount_cents
+      title: BillingPrice
+      description: 'Display + checkout metadata for a purchasable plan''s recurring price.
+
+
+        Single source of truth for both ``GET /entitlements/plans`` (display) and
+
+        ``POST /entitlements/checkout`` (``price_id`` fed to Stripe). Loaded from
+
+        the ``ENTITLEMENTS_STRIPE_PRICE_MAP`` config so the read path never has to
+
+        call Stripe to render a pricing table.'
+    UsageResponse:
+      properties:
+        period_key:
+          type: string
+          title: Period Key
+        credits_used:
+          type: integer
+          title: Credits Used
+        allowance:
+          $ref: '#/components/schemas/AllowanceView'
+          description: What the plan allows this cycle, as a tagged object rather than a nullable number. A null limit had to mean both 'no ceiling' and 'no entitlement', which is exactly how a cancelled organization came to be reported as unlimited. Read the kind, then the fields that kind carries.
+        credits_overage:
+          type: integer
+          title: Credits Overage
+          description: 'Credits beyond the included allowance: credits_used minus credits_included, floored at zero, and zero when the allowance is unlimited. Named for the rate card''s own term, which is also what reaches the meter event and the invoice line, so a disputed bill and this payload use one word for one thing.'
+        charges_apply:
+          type: boolean
+          title: Charges Apply
+          description: 'Whether an overage in this cycle is actually charged. False while the AI quota is in its preview period, when usage is recorded and billed to nobody, and for an organization with no paid subscription, whose allowance is a hard stop. Separate from credits_overage because the two are different facts: one is the regime, the other is this cycle.'
+        unattributed_credits:
+          type: integer
+          title: Unattributed Credits
+          description: 'Credits in credits_used that by_capability does not account for, floored at zero. Normally zero. It is positive for a cycle that was already in flight when per-capability counting began: the cycle total covers the whole period while the breakdown covers only the part after it, so the parts do not sum to the whole. Reported rather than hidden, because a breakdown that silently fails to add up is the one thing a screen built to be checkable must not do. Self-clearing: no cycle started after counting began can have it.'
+        resets_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Resets At
+          description: 'When this period ends and the allowance renews: the 1st of next month (UTC) for an allowance counted per calendar month, otherwise the next billing-cycle boundary. Not derivable from period_key, which is the cycle''s clamped start day and says nothing about the next boundary in a month too short to hold the anchor. Null when a billing-cycle allowance has no plan row to take an anchor from. The same instant getEntitlementStatus reports, from one helper.'
+        by_capability:
+          items:
+            $ref: '#/components/schemas/CapabilityUsage'
+          type: array
+          title: By Capability
+          description: Largest consumer first. Empty when the cycle recorded none.
+      type: object
+      required:
+      - period_key
+      - credits_used
+      - allowance
+      - credits_overage
+      - charges_apply
+      - unattributed_credits
+      - resets_at
+      - by_capability
+      title: UsageResponse
+      description: One organization's usage for one billing cycle, and what it comes to.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

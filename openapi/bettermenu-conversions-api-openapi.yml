@@ -1,0 +1,225 @@
+openapi: 3.2.0
+info:
+  title: Studio Conversions API
+  description: '## Recipe versioning
+
+
+    Recipe is the aggregate; versions are read-only history. Use the table
+
+    below to pick the right call.
+
+
+    | I want to… | Use… |
+
+    |-------------------------------------------------------------|------------------------------------------------------------|
+
+    | Edit a recipe safely without overwriting someone else''s | `GET /recipes/{id}` → `If-Match` → `PATCH`/`POST`/`DELETE` |
+
+    | See a recipe at a point in the past | `GET /recipes/{id}/versions/{version_id}` |
+
+    | Replay the chain of state changes (signed, tamper-evident) | `GET /recipes/{id}/versions` |
+
+    | See who changed what and when, with event detail | `GET /recipes/{id}/audit-trail` |
+
+    | Understand why a write returned `412` | someone else edited; refetch and retry |
+
+
+    The `version_id` returned on every recipe response is your edit token.
+
+    Send it as `If-Match` on the next write; on conflict the server returns
+
+    `412` with `current_version_id` so you can refetch and retry. There is
+
+    no `POST /recipes/{id}/versions` — the system commits versions
+
+    automatically when you mutate the recipe.
+
+
+    The versions list and the audit trail answer different questions: the
+
+    versions list is a tamper-evident chain of state snapshots you can
+
+    replay; the audit trail is a filterable, event-typed log of what users
+
+    and systems did to the recipe.'
+  version: 2026-05-04.preview
+  x-service-version: 0.47.0+ac83f7e
+tags:
+- name: Conversions
+paths:
+  /us/conversions/compute:
+    post:
+      tags:
+      - Conversions
+      summary: Compute gram weights for ingredients
+      description: 'Compute gram weights for ingredient items — convert quantities to grams
+
+        using portion data and standard measurement tables.
+
+
+        ② of 5 | Next: ④ setRecipeIngredients
+
+        Stateless — no recipe needed yet.
+
+
+        Use this to answer: "how many grams is 2 cups of flour?",
+
+        "convert 3 eggs to grams", "get gram weight for these ingredients",
+
+        "what does 1 pinch of saffron weigh?"
+
+
+        ① searchIngredients returns matches with no gram-weight detail — always
+
+        follow with this step to resolve a picked ingredient''s quantity to
+
+        grams. Accepts a batch of (ingredient_id, quantity, unit) items and
+
+        returns gram weights.
+
+
+        Pass portion_id (from getIngredient''s portions[].id) instead of unit to
+
+        resolve a specific portion directly, bypassing unit string matching.
+
+        This is the only way to resolve a branded product''s default serving,
+
+        which has no unit name to match against.
+
+
+        When no portion match exists, returns resolve_options guiding
+
+        the caller to either re-call with allow_estimation: true
+
+        (system estimate) or ask the user for quantity_grams directly.
+
+
+        Every result carries gram_weight.conversion_source, so a caller can tell
+
+        a deterministic gram weight (USDA_FOOD_PORTIONS, USDA_MEASUREMENT_TABLES,
+
+        identity) from an estimated one (system_estimate), with the arithmetic in
+
+        steps[].reasoning. Both channels read the same field; neither is offered a
+
+        different answer for the same policy decision.'
+      operationId: computeWeightConversions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComputeConversionsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Computeweightconversions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-bettermenu-mcp-status: ga
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ComputeConversionsRequest:
+      properties:
+        country_code:
+          type: string
+          title: Country Code
+          description: Market code (`US`), the same value `market` and a recipe's `country` take. Selects the ingredient data and conversion rules.
+          default: US
+        items:
+          items:
+            $ref: '#/components/schemas/ConversionRequestItem'
+          type: array
+          maxItems: 50
+          minItems: 1
+          title: Items
+        allow_estimation:
+          type: boolean
+          title: Allow Estimation
+          description: When true, use estimation for items without a deterministic portion match.
+          default: false
+      type: object
+      required:
+      - items
+      title: ComputeConversionsRequest
+      description: Batch conversion request.
+    ConversionRequestItem:
+      properties:
+        ingredient_id:
+          type: string
+          title: Ingredient Id
+          description: BetterMenu ingredient ID (bmid)
+        quantity:
+          type: string
+          title: Quantity
+          description: Quantity as decimal string (must be > 0)
+          examples:
+          - '2'
+          - '0.5'
+        unit:
+          type: string
+          title: Unit
+          description: Unit (empty string for count-based)
+          examples:
+          - cup
+          - ''
+          - pinch
+        portion_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Portion Id
+          description: 'A portion''s id, from the ingredient''s nutrition facts (`portions[].id`), to convert that portion directly instead of matching the unit. The only way to convert a branded product''s default serving, which has no unit name: pass its id here instead of a unit.'
+          examples:
+          - fp_dXNkYV9iZjoyNTk3MTI1OjAwNTQ0MDAwMTUwNDE6MjAyNi0wNC0zMDpwb3J0aW9uXzA
+      type: object
+      required:
+      - ingredient_id
+      - quantity
+      - unit
+      title: ConversionRequestItem
+      description: Single item to compute conversion for.

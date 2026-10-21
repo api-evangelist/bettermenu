@@ -1,0 +1,16 @@
+generated: '2026-10-21'
+source: https://bettermenu.live/privacy/
+method: probed
+signals:
+  data_subject_request:
+    - source: https://bettermenu.live/privacy/
+      http_status: 200
+      fetched: /tmp/privacy.html
+      quote: "We retain your account information for as long as your account remains active. To request deletion of your account, contact us; upon a verified request, we purge your account and personal data from our active systems within 30 days."
+      note: Allows users to request deletion of personal data within 30 days.
+  data_retention:
+    - source: https://bettermenu.live/privacy/
+      http_status: 200
+      fetched: /tmp/privacy.html
+      quote: "6.1 Account Data: We retain your account information for as long as your account remains active... we purge your account and personal data from our active systems within 30 days. A copy may briefly persist in backups until they are overwritten on their normal cycle."
+      note: Describes retention period for account data and backup persistence.

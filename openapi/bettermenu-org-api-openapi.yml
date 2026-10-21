@@ -1,0 +1,511 @@
+openapi: 3.2.0
+info:
+  title: Studio Org API
+  description: '## Recipe versioning
+
+
+    Recipe is the aggregate; versions are read-only history. Use the table
+
+    below to pick the right call.
+
+
+    | I want to… | Use… |
+
+    |-------------------------------------------------------------|------------------------------------------------------------|
+
+    | Edit a recipe safely without overwriting someone else''s | `GET /recipes/{id}` → `If-Match` → `PATCH`/`POST`/`DELETE` |
+
+    | See a recipe at a point in the past | `GET /recipes/{id}/versions/{version_id}` |
+
+    | Replay the chain of state changes (signed, tamper-evident) | `GET /recipes/{id}/versions` |
+
+    | See who changed what and when, with event detail | `GET /recipes/{id}/audit-trail` |
+
+    | Understand why a write returned `412` | someone else edited; refetch and retry |
+
+
+    The `version_id` returned on every recipe response is your edit token.
+
+    Send it as `If-Match` on the next write; on conflict the server returns
+
+    `412` with `current_version_id` so you can refetch and retry. There is
+
+    no `POST /recipes/{id}/versions` — the system commits versions
+
+    automatically when you mutate the recipe.
+
+
+    The versions list and the audit trail answer different questions: the
+
+    versions list is a tamper-evident chain of state snapshots you can
+
+    replay; the audit trail is a filterable, event-typed log of what users
+
+    and systems did to the recipe.'
+  version: 2026-05-04.preview
+  x-service-version: 0.47.0+ac83f7e
+tags:
+- name: Org
+  description: Organization-level capabilities spanning multiple resource types (e.g. search).
+paths:
+  /org/search-token:
+    post:
+      tags:
+      - Org
+      summary: Create Org Search Token
+      description: Mints one short-lived, independently-scoped Typesense search token per collection the caller is authorized to search. Combine the returned `host`/`port`/`protocol` with each `entries[name]`'s `token`/`collection`/`query` to query Typesense directly from the client — no per-keystroke request to this API.
+      operationId: createSearchToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/CreateSearchTokenRequest'
+              - type: 'null'
+              title: Request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTokenResponse'
+        '401':
+          description: Missing or invalid authentication.
+        '403':
+          description: Caller is not permitted to mint a search token for either recipes or ingredients.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-bettermenu-mcp-status: preview
+      x-required-permission:
+      - studio.recipes.search_token
+      - studio.ingredients.search_token
+  /org/settings:
+    patch:
+      tags:
+      - Org
+      summary: Update Org Settings
+      description: Updates the calling member's organization settings. Only the fields supplied are changed. Requires an organization administrator.
+      operationId: updateOrgSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgSettingsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateOrgSettingsResponse'
+        '403':
+          description: 'The caller is not an organization administrator (code: ''permission_denied''), or the request did not arrive on a channel permitted to change organization settings (code: ''channel_not_permitted'').'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: Request body failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+      x-bettermenu-mcp-status: internal
+      x-required-permission: studio.org_settings.update
+components:
+  schemas:
+    LabelFindingsPolicy:
+      type: string
+      enum:
+      - acknowledge
+      - block
+      title: LabelFindingsPolicy
+      description: What an export does when the label has findings nobody has addressed.
+    SearchTokenEntry:
+      properties:
+        token:
+          type: string
+          title: Token
+          description: Scoped Typesense search token restricted to exactly `collection` and to documents matching this entry's own ACL.
+        collection:
+          type: string
+          title: Collection
+          description: Exact Typesense collection name to query.
+        expires_at:
+          type: integer
+          title: Expires At
+          description: Unix epoch seconds after which Typesense rejects this token.
+        query:
+          $ref: '#/components/schemas/SearchTokenQueryDescriptor'
+          description: Query parameters the browser must pass to Typesense with this token.
+      type: object
+      required:
+      - token
+      - collection
+      - expires_at
+      - query
+      title: SearchTokenEntry
+      description: 'One collection''s scoped token, its name, and how to query it.
+
+
+        ``token`` is independently minted for this entry alone — it is
+
+        restricted to exactly ``collection`` and rejects any request against a
+
+        different collection, regardless of what other entries appear in the
+
+        same response.'
+    ProblemDetail:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: URI reference identifying the problem type
+          examples:
+          - https://api.bettermenu.live/errors/recipe_not_found
+        title:
+          type: string
+          title: Title
+          description: Short, human-readable summary of the problem
+          examples:
+          - Recipe Not Found
+          - Search Service Unavailable
+        status:
+          type: integer
+          title: Status
+          description: HTTP status code for this occurrence
+          examples:
+          - 400
+          - 403
+          - 404
+          - 409
+          - 500
+          - 503
+        detail:
+          type: string
+          title: Detail
+          description: Human-readable explanation specific to this occurrence
+          examples:
+          - Recipe rcpe_abc123 does not exist
+          - Failed to parse 2 out of 5 ingredients
+        code:
+          type: string
+          title: Code
+          description: Machine-readable error code (mirrors the type-URI slug)
+          examples:
+          - recipe_not_found
+          - batch_parsing_error
+        retryable:
+          type: boolean
+          title: Retryable
+          description: Whether the client should retry this request
+          examples:
+          - true
+          - false
+        instance:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instance
+          description: URI reference identifying the specific occurrence
+          examples:
+          - /api/v1/recipes/rcpe_abc123
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Id
+          description: Request trace ID for debugging
+          examples:
+          - req_xyz789
+          - trace-123-456
+        errors:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Errors
+          description: Optional array of individual errors for batch operations
+        invalid_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Invalid Ids
+          description: List of ingredient IDs that were not found (for INVALID_INGREDIENT_IDS errors)
+          examples:
+          - - f_abc123
+            - f_xyz789
+      type: object
+      required:
+      - type
+      - title
+      - status
+      - detail
+      - code
+      - retryable
+      title: ProblemDetail
+      description: "RFC 7807 / 9457 Problem Details for HTTP API errors.\n\nStandard fields plus BetterMenu extensions:\n- ``code``: machine-readable error code (mirrors the slug at the end of\n  ``type``; kept for backwards-compatible client logic that still\n  branches on it).\n- ``retryable``: hint to the client about whether retrying may\n  succeed.\n- ``trace_id``: request correlation ID for support-channel triage.\n\nExtension members beyond these (``recipe_id``, ``version_id``,\n``schema_version``, etc.) are accepted at the top level — Pydantic\nserialization preserves them via ``model_config = {\"extra\": \"allow\"}``\non consumers that need a typed model. The ``build_problem_detail``\nbuilder returns a plain ``dict`` so unknown extensions flow through\nwithout ceremony.\n\nReferences:\n    - RFC 7807: https://www.rfc-editor.org/rfc/rfc7807\n    - RFC 9457: https://www.rfc-editor.org/rfc/rfc9457"
+    CountryCode:
+      type: string
+      enum:
+      - US
+      title: CountryCode
+      description: 'Market code: the country whose food data and labelling rules apply.
+
+
+        Parameters name it `market`, `country` or `country_code`; all take this value.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SearchTokenQueryDescriptor:
+      properties:
+        query_by:
+          type: string
+          title: Query By
+          description: Typesense field(s) to search text against.
+        sort_by:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sort By
+          description: Typesense sort clause to apply to results.
+        num_typos:
+          type: integer
+          title: Num Typos
+          description: Maximum typo tolerance for the search query.
+        prefix:
+          type: boolean
+          title: Prefix
+          description: Whether to match the query text as a prefix (typeahead).
+        per_page:
+          type: integer
+          title: Per Page
+          description: Number of results to return per page.
+        query_by_weights:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query By Weights
+          description: Per-field weighting for query_by, comma-separated.
+        include_fields:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Include Fields
+          description: Comma-separated fields to include in results.
+        highlight_fields:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Highlight Fields
+          description: Comma-separated fields to highlight matches in.
+        prioritize_exact_match:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Prioritize Exact Match
+          description: Whether an exact match should rank first.
+        drop_tokens_mode:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Drop Tokens Mode
+          description: Which end of the query Typesense drops tokens from when it must drop any. English food names put the head noun last, so the Typesense default (right_to_left) discards the word that matters.
+        single_token_sort_by:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Single Token Sort By
+          description: 'Sort clause to use INSTEAD OF `sort_by` when the query is a single token. A one-word query scores every match identically, so the tiebreak chain decides the result there and nowhere else, and the chain that helps one word measurably hurts several. Null means no routing: keep using `sort_by` for every query.'
+        single_token_num_typos:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Single Token Num Typos
+          description: Typo tolerance to use INSTEAD OF `num_typos` when the query is a single token. Raising it is safe for one word but not in general (`unsalted` is two edits from `salted`). Null means no routing.
+      type: object
+      required:
+      - query_by
+      - num_typos
+      - prefix
+      - per_page
+      title: SearchTokenQueryDescriptor
+      description: 'How the browser must query one collection with its own scoped token.
+
+
+        Mirrors the query fields the server-side executor for that same
+
+        collection uses, so the browser never hardcodes its own search
+
+        behavior. Fields beyond ``query_by``/``num_typos``/``prefix``/
+
+        ``per_page`` are optional — the org-scoped recipes/ingredients entries
+
+        don''t set them, while the standard-collection entries do (mirroring
+
+        ``TypesenseSearchProvider.SEARCH_CONFIG``/``COLLECTION_CONFIG``).
+
+        ``sort_by`` is optional because the standard ``usda_bf_products``
+
+        collection deliberately has none.'
+    UpdateOrgSettingsRequest:
+      properties:
+        metered_usage_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Metered Usage Enabled
+          description: Whether the organization accepts charges for usage beyond its plan's included monthly allowance. When false, requests that would be charged are refused; requests within the included allowance are unaffected.
+        label_findings_policy:
+          anyOf:
+          - $ref: '#/components/schemas/LabelFindingsPolicy'
+          - type: 'null'
+          description: 'What a label export does when the label has findings nobody has addressed: ''acknowledge'' asks the caller to acknowledge them and then exports; ''block'' refuses the export while they stand.'
+      additionalProperties: false
+      type: object
+      title: UpdateOrgSettingsRequest
+      description: 'Partial update of the caller''s own organization settings.
+
+
+        Carries no organization identifier, deliberately. The organization is taken
+
+        from the authenticated request state, so there is no id for a caller to
+
+        tamper with, no ownership check to author, and no way to address another
+
+        organization''s settings. ``extra="forbid"`` makes that structural rather
+
+        than conventional: a body that supplies ``org_id`` is rejected outright
+
+        instead of having the field quietly ignored.
+
+
+        Every field is optional; a field left unset is left as it is.'
+    UpdateOrgSettingsResponse:
+      properties:
+        metered_usage_enabled:
+          type: boolean
+          title: Metered Usage Enabled
+          description: Whether the organization accepts charges for usage beyond its plan's included monthly allowance.
+        label_findings_policy:
+          $ref: '#/components/schemas/LabelFindingsPolicy'
+          description: 'What a label export does when the label has findings nobody has addressed: ''acknowledge'' or ''block''.'
+      type: object
+      required:
+      - metered_usage_enabled
+      - label_findings_policy
+      title: UpdateOrgSettingsResponse
+      description: 'The organization''s settings after the change.
+
+
+        The settings object bare, with no envelope — matching the only other org
+
+        route, ``POST /org/search-token``, whose ``SearchTokenResponse`` is likewise
+
+        returned unwrapped. It carries the full current settings rather than only
+
+        what changed, so a client can render its state from the response without a
+
+        follow-up read.'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateSearchTokenRequest:
+      properties:
+        market:
+          anyOf:
+          - $ref: '#/components/schemas/CountryCode'
+          - type: 'null'
+          description: Market to scope ingredient search to, mirroring searchIngredients' market parameter (ADR 0007's approved_markets gate). If the caller is entitled to ingredient search but omits this, the response degrades to whatever else the caller is entitled to rather than including an incorrectly-scoped ingredients grant. An empty string is rejected as a 422 (not a valid CountryCode value), not treated as an omitted field.
+      type: object
+      title: CreateSearchTokenRequest
+      description: 'Optional mint-request body — every field is optional and defaults apply.
+
+
+        Everything except ``market`` derives from the authenticated context;
+
+        this model exists only to carry ``market``, which cannot be derived
+
+        server-side (unlike ``org_id``/``member_id``).'
+    SearchTokenResponse:
+      properties:
+        host:
+          type: string
+          title: Host
+          description: Typesense host to connect to directly.
+        port:
+          type: integer
+          title: Port
+          description: Typesense port to connect to directly.
+        protocol:
+          type: string
+          title: Protocol
+          description: Typesense connection protocol (e.g. 'https').
+        entries:
+          additionalProperties:
+            $ref: '#/components/schemas/SearchTokenEntry'
+          type: object
+          title: Entries
+          description: One entry per collection the caller is entitled to search — keys are a subset of {'recipes', 'ingredients', 'ingredients_library', 'usda_ingredients', 'usda_bf_products'}. 'ingredients' and 'ingredients_library' mint against the same collection; only 'ingredients' excludes draft/archived status.
+        routing_fields:
+          items:
+            type: string
+          type: array
+          title: Routing Fields
+          description: Keys that may appear inside `query` but must NOT be forwarded to Typesense. They select between other keys rather than being query parameters, so sending one is a rejected search. A client that reads this needs no release when the set changes.
+      type: object
+      required:
+      - host
+      - port
+      - protocol
+      - entries
+      title: SearchTokenResponse
+      description: 'Per-caller org search tokens, one independent entry per searchable collection.
+
+
+        ``entries`` carries a key only for each collection the caller is
+
+        entitled to search — the client must not attempt to query a
+
+        collection missing from this map; each entry''s own token will reject
+
+        such a request even if the client tries.'
