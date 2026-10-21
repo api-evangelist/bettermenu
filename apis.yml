@@ -1,7 +1,6 @@
 aid: bettermenu
 name: BetterMenu
-description: 'BetterMenu is a company surfaced via the API Evangelist harvest backlog (source: new-submission)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'BetterMenu provides a cloud‑based recipe formulation platform for food manufacturers, enabling rapid product development with built‑in FDA‑compliant nutrition labeling. Users can input ingredient lists and instantly generate nutrition facts panels, streamline formulation, and accelerate time‑to‑market while ensuring regulatory compliance.'
 url: https://raw.githubusercontent.com/api-evangelist/bettermenu/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:new-submission
@@ -11,7 +10,11 @@ specificationVersion: '0.20'
 created: '2026-10-21'
 modified: '2026-10-21'
 tags:
-- Company
+- FoodTech
+- RecipeFormulation
+- FDACompliance
+- SaaS
+- Cloud
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -19,10 +22,22 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/bettermenu-domain-security.yml
 - type: Website
   url: https://bettermenu.live/
 - type: Documentation
   url: https://docs.bettermenu.live/docs/api
+- type: Pricing
+  url: https://bettermenu.live/pricing/
+- type: TermsOfService
+  url: https://bettermenu.live/terms/
+- type: PrivacyPolicy
+  url: https://bettermenu.live/privacy/
+- type: Support
+  url: https://bettermenu.live/support/
+- type: Blog
+  url: https://bettermenu.live/blog/
 x-submission-notes: api.bettermenu.live root 404 JSON (that is the API host); llms.txt 200
 x-submission-probe: api root 404 JSON, docs 200, llms.txt 200
 x-submitted-by: team@bettermenu.live (submission, 2026-10-20)
