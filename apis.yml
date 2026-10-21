@@ -1,0 +1,28 @@
+aid: bettermenu
+name: BetterMenu
+description: 'BetterMenu is a company surfaced via the API Evangelist harvest backlog (source: new-submission)
+  and added to the network as a stub for full-pipeline profiling.'
+url: https://raw.githubusercontent.com/api-evangelist/bettermenu/refs/heads/main/apis.yml
+x-type: company
+x-source: harvest:new-submission
+x-tier: stub
+x-tier-reason: harvest
+specificationVersion: '0.20'
+created: '2026-10-21'
+modified: '2026-10-21'
+tags:
+- Company
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+common:
+- type: Website
+  url: https://bettermenu.live/
+- type: Documentation
+  url: https://docs.bettermenu.live/docs/api
+x-submission-notes: api.bettermenu.live root 404 JSON (that is the API host); llms.txt 200
+x-submission-probe: api root 404 JSON, docs 200, llms.txt 200
+x-submitted-by: team@bettermenu.live (submission, 2026-10-20)
