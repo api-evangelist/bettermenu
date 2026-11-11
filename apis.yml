@@ -122,7 +122,6 @@ x-submission-notes: api.bettermenu.live root 404 JSON (that is the API host); ll
 
 x-submission-probe: api root 404 JSON, docs 200, llms.txt 200
 
-x-submitted-by: team@bettermenu.live (submission, 2026-10-20)
 
 x-coverage:
   state: unreadable
